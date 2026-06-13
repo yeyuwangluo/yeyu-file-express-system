@@ -1,0 +1,1101 @@
+:root,
+[data-theme='light'] {
+    color-scheme: light;
+    --heroui-background: 0 0% 100%;
+    --heroui-foreground: 201.82 24.44% 8.82%;
+    --heroui-content1: 0 0% 100%;
+    --heroui-content2: 240 4.76% 95.88%;
+    --heroui-default: 240 4.88% 83.92%;
+    --heroui-default-100: 240 4.76% 95.88%;
+    --heroui-default-200: 240 5.88% 90%;
+    --heroui-default-300: 240 4.88% 83.92%;
+    --heroui-default-400: 240 5.03% 64.9%;
+    --heroui-default-500: 240 3.83% 46.08%;
+    --heroui-default-700: 240 5.26% 26.08%;
+    --heroui-default-900: 240 5.88% 10%;
+    --heroui-primary: 212.02 100% 46.67%;
+    --heroui-primary-50: 212.5 92.31% 94.9%;
+    --heroui-primary-100: 211.84 92.45% 89.61%;
+    --heroui-primary-400: 212.14 92.45% 58.43%;
+    --heroui-primary-500: 212.02 100% 46.67%;
+    --heroui-primary-600: 212.14 100% 38.43%;
+    --heroui-primary-700: 212.24 100% 28.82%;
+    --heroui-success: 145.96 79.46% 43.92%;
+    --heroui-warning: 37.03 91.27% 55.1%;
+    --heroui-danger: 339.2 90.36% 51.18%;
+    --heroui-radius-small: 8px;
+    --heroui-radius-medium: 12px;
+    --heroui-radius-large: 14px;
+    --heroui-box-shadow-small: 0 0 5px 0 rgba(0, 0, 0, .02), 0 2px 10px 0 rgba(0, 0, 0, .06), 0 0 1px 0 rgba(0, 0, 0, .3);
+    --heroui-box-shadow-medium: 0 0 15px 0 rgba(0, 0, 0, .03), 0 2px 30px 0 rgba(0, 0, 0, .08), 0 0 1px 0 rgba(0, 0, 0, .3);
+    --fe-page-bg: #f2f2f7;
+    --fe-panel-bg: rgb(255 255 255 / .5);
+    --fe-panel-strong-bg: rgb(255 255 255 / .9);
+    --fe-nav-bg: rgb(255 255 255 / .72);
+    --fe-border: rgb(255 255 255 / .6);
+    --fe-border-strong: rgb(229 231 235 / .8);
+    --fe-control-bg: rgb(255 255 255 / .86);
+    --fe-control-hover-bg: rgb(249 250 251 / .92);
+    --fe-text: #111827;
+    --fe-muted: #6b7280;
+    --fe-muted-soft: #9ca3af;
+    --fe-primary: hsl(var(--heroui-primary));
+    --fe-primary-soft: hsl(var(--heroui-primary-50) / .72);
+    --fe-success: hsl(var(--heroui-success));
+    --fe-warning: hsl(var(--heroui-warning));
+    --fe-danger: hsl(var(--heroui-danger));
+    --fe-radius-card: 20px;
+    --fe-radius-panel: 24px;
+    --fe-radius-control: 12px;
+    --fe-shadow: var(--heroui-box-shadow-medium);
+    --fe-blur: blur(40px);
+}
+
+.dark,
+[data-theme='dark'] {
+    color-scheme: dark;
+    --heroui-background: 240 3.7% 15.88%;
+    --heroui-foreground: 0 0% 98%;
+    --heroui-content1: 215 28% 17%;
+    --heroui-content2: 217 19% 27%;
+    --heroui-default: 217 19% 27%;
+    --heroui-default-100: 220 14% 14%;
+    --heroui-default-200: 217 19% 27%;
+    --heroui-default-300: 215 16% 37%;
+    --heroui-default-400: 215 20% 65%;
+    --heroui-default-500: 215 20% 75%;
+    --heroui-default-700: 220 14% 90%;
+    --heroui-default-900: 0 0% 100%;
+    --fe-page-bg: #1c1c1e;
+    --fe-panel-bg: rgb(31 41 55 / .5);
+    --fe-panel-strong-bg: rgb(31 41 55 / .92);
+    --fe-nav-bg: rgb(31 41 55 / .72);
+    --fe-border: rgb(55 65 81 / .6);
+    --fe-border-strong: rgb(75 85 99 / .74);
+    --fe-control-bg: rgb(17 24 39 / .72);
+    --fe-control-hover-bg: rgb(31 41 55 / .92);
+    --fe-text: #f9fafb;
+    --fe-muted: #9ca3af;
+    --fe-muted-soft: #6b7280;
+    --fe-primary-soft: hsl(var(--heroui-primary) / .12);
+}
+
+html {
+    font-family: 'MiSans', 'Microsoft YaHei', system-ui, sans-serif;
+}
+
+body {
+    letter-spacing: 0;
+}
+
+.fe-page {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--fe-page-bg);
+    color: var(--fe-text);
+    font-family: 'MiSans', 'Microsoft YaHei', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+}
+
+.fe-card {
+    border: 1px solid var(--fe-border);
+    border-radius: var(--fe-radius-card);
+    background: var(--fe-panel-bg);
+    box-shadow: var(--fe-shadow);
+    backdrop-filter: var(--fe-blur);
+}
+
+.fe-muted,
+.fe-admin .muted,
+.fe-file-page .muted {
+    color: var(--fe-muted);
+}
+
+.fe-actions,
+.fe-admin .header-actions,
+.fe-file-page .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.fe-button,
+.fe-install button,
+.fe-admin button,
+.fe-file-page button,
+.fe-file-page .actions a,
+.fe-admin .header-actions a {
+    display: inline-flex;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: var(--fe-radius-control);
+    background: var(--fe-text);
+    color: hsl(var(--heroui-background));
+    padding: 0 16px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 140ms ease, opacity 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.fe-button:hover,
+.fe-install button:hover,
+.fe-admin button:hover,
+.fe-file-page button:hover,
+.fe-file-page .actions a:hover,
+.fe-admin .header-actions a:hover {
+    opacity: .82;
+}
+
+.fe-button:active,
+.fe-install button:active,
+.fe-admin button:active,
+.fe-file-page button:active,
+.fe-file-page .actions a:active,
+.fe-admin .header-actions a:active {
+    transform: scale(.97);
+}
+
+.fe-button-secondary,
+.fe-file-page .actions .secondary {
+    background: hsl(var(--heroui-default-100));
+    color: var(--fe-text);
+}
+
+.fe-danger,
+.fe-admin button.danger {
+    background: var(--fe-danger);
+    color: #fff;
+}
+
+.fe-pill,
+.fe-admin .pill,
+.fe-file-page .badge {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid hsl(var(--heroui-primary) / .14);
+    border-radius: 999px;
+    background: hsl(var(--heroui-primary) / .1);
+    color: hsl(var(--heroui-primary-700));
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.dark .fe-pill,
+.dark .fe-admin .pill,
+.dark .fe-file-page .badge {
+    color: hsl(var(--heroui-primary-400));
+}
+
+.fe-install {
+    padding: 24px;
+}
+
+.fe-install main {
+    display: grid;
+    width: min(100%, 1160px);
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.fe-install .install-nav,
+.fe-install .install-hero,
+.fe-install .install-panel,
+.fe-install .install-alert {
+    border: 1px solid var(--fe-border);
+    background: var(--fe-panel-bg);
+    box-shadow: var(--fe-shadow);
+    backdrop-filter: var(--fe-blur);
+}
+
+.fe-install .install-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-radius: 999px;
+    padding: 12px 16px;
+}
+
+.fe-install .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--fe-text);
+    text-decoration: none;
+}
+
+.fe-install .brand img {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+}
+
+.fe-install .brand span {
+    display: grid;
+    line-height: 1.05;
+}
+
+.fe-install .brand strong {
+    font-size: 15px;
+}
+
+.fe-install .brand small {
+    color: var(--fe-muted);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.fe-install .install-steps {
+    display: inline-flex;
+    gap: 6px;
+    color: var(--fe-muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.fe-install .install-steps span {
+    border-radius: 999px;
+    background: hsl(var(--heroui-primary) / .08);
+    padding: 7px 10px;
+}
+
+.fe-install .install-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border-radius: var(--fe-radius-panel);
+    padding: 24px;
+}
+
+.fe-install .install-hero h1 {
+    margin: 10px 0 8px;
+    color: var(--fe-text);
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.1;
+}
+
+.fe-install .badge {
+    display: inline-flex;
+    width: fit-content;
+    border: 1px solid hsl(var(--heroui-primary) / .14);
+    border-radius: 999px;
+    background: hsl(var(--heroui-primary) / .1);
+    color: hsl(var(--heroui-primary-700));
+    padding: 5px 11px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.fe-install .install-summary {
+    display: grid;
+    min-width: 160px;
+    gap: 4px;
+    border-radius: var(--fe-radius-card);
+    background: var(--fe-panel-strong-bg);
+    padding: 16px;
+}
+
+.fe-install .install-summary span {
+    color: var(--fe-muted);
+    font-size: 13px;
+}
+
+.fe-install .install-summary strong {
+    color: var(--fe-text);
+    font-size: 22px;
+}
+
+.fe-install .install-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, .82fr) minmax(0, 1.4fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.fe-install .install-panel,
+.fe-install .install-alert {
+    border-radius: var(--fe-radius-panel);
+    padding: 18px;
+}
+
+.fe-install .install-panel h2,
+.fe-install .install-panel h3 {
+    margin: 0;
+    color: var(--fe-text);
+}
+
+.fe-install .install-panel h2 {
+    font-size: 18px;
+}
+
+.fe-install .install-panel h3 {
+    font-size: 13px;
+}
+
+.fe-install .check-group {
+    display: grid;
+    gap: 9px;
+    margin-top: 16px;
+}
+
+.fe-install .check-row {
+    display: grid;
+    grid-template-columns: 10px 1fr;
+    gap: 10px;
+    align-items: start;
+    border: 1px solid var(--fe-border-strong);
+    border-radius: var(--fe-radius-control);
+    background: var(--fe-control-bg);
+    padding: 10px;
+}
+
+.fe-install .check-row .dot {
+    width: 9px;
+    height: 9px;
+    margin-top: 5px;
+    border-radius: 999px;
+    background: var(--fe-danger);
+}
+
+.fe-install .check-row.ok .dot {
+    background: var(--fe-success);
+}
+
+.fe-install .check-row strong,
+.fe-install .check-row small {
+    display: block;
+}
+
+.fe-install .check-row strong {
+    color: var(--fe-text);
+    font-size: 13px;
+}
+
+.fe-install .check-row small {
+    margin-top: 2px;
+    color: var(--fe-muted);
+    overflow-wrap: anywhere;
+    font-size: 12px;
+}
+
+.fe-install .install-form {
+    display: grid;
+    gap: 18px;
+}
+
+.fe-install .install-form section {
+    display: grid;
+    gap: 12px;
+}
+
+.fe-install .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fe-install .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.fe-install label {
+    display: grid;
+    gap: 6px;
+    color: var(--fe-muted);
+    font-size: 13px;
+}
+
+.fe-install input {
+    width: 100%;
+    min-height: 42px;
+    border: 1px solid var(--fe-border-strong);
+    border-radius: var(--fe-radius-control);
+    outline: none;
+    background: var(--fe-control-bg);
+    color: var(--fe-text);
+    padding: 0 12px;
+    font: inherit;
+}
+
+.fe-install input:focus {
+    border-color: hsl(var(--heroui-primary));
+    box-shadow: 0 0 0 3px hsl(var(--heroui-primary) / .16);
+}
+
+.fe-install .span-2 {
+    grid-column: 1 / -1;
+}
+
+.fe-install .segmented {
+    display: inline-flex;
+    width: fit-content;
+    gap: 6px;
+    border: 1px solid var(--fe-border-strong);
+    border-radius: 999px;
+    background: var(--fe-control-bg);
+    padding: 5px;
+}
+
+.fe-install .segmented label {
+    display: block;
+}
+
+.fe-install .segmented input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.fe-install .segmented span {
+    display: inline-flex;
+    min-width: 84px;
+    justify-content: center;
+    border-radius: 999px;
+    color: var(--fe-muted);
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.fe-install .segmented input:checked + span {
+    background: hsl(var(--heroui-primary));
+    color: #fff;
+}
+
+.fe-install .db-panel {
+    display: grid;
+    gap: 12px;
+}
+
+.fe-install .field-error {
+    color: var(--fe-danger);
+    font-size: 12px;
+}
+
+.fe-install .install-alert {
+    display: grid;
+    gap: 4px;
+}
+
+.fe-install .install-alert.danger {
+    border-color: hsl(var(--heroui-danger) / .24);
+    background: hsl(var(--heroui-danger) / .08);
+}
+
+.fe-install .install-alert strong {
+    color: var(--fe-danger);
+}
+
+.fe-install .install-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fe-file-page {
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+.fe-file-page .panel {
+    width: min(100%, 620px);
+    border: 1px solid var(--fe-border);
+    border-radius: var(--fe-radius-panel);
+    background: var(--fe-panel-bg);
+    box-shadow: var(--fe-shadow);
+    padding: 28px;
+    backdrop-filter: var(--fe-blur);
+}
+
+.fe-file-page .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.fe-file-page .brand img {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--fe-radius-control);
+}
+
+.fe-file-page .brand strong {
+    display: block;
+    color: var(--fe-text);
+    font-size: 18px;
+}
+
+.fe-file-page .brand span {
+    color: var(--fe-muted);
+    font-size: 13px;
+}
+
+.fe-file-page .brand div {
+    min-width: 0;
+}
+
+.fe-file-page h1 {
+    margin: 0 0 18px;
+    color: var(--fe-text);
+    font-size: clamp(24px, 5vw, 32px);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+}
+
+.fe-file-page .badge {
+    margin-bottom: 14px;
+}
+
+.fe-file-page .badge.warning {
+    border-color: hsl(var(--heroui-warning) / .18);
+    background: hsl(var(--heroui-warning) / .12);
+    color: #b45309;
+}
+
+.dark .fe-file-page .badge.warning {
+    color: #fbbf24;
+}
+
+.fe-file-page .share-code {
+    display: grid;
+    gap: 4px;
+    margin: 18px 0;
+    padding: 14px 16px;
+    border: 1px solid hsl(var(--heroui-primary) / .16);
+    border-radius: var(--fe-radius-card);
+    background: hsl(var(--heroui-primary) / .08);
+}
+
+.fe-file-page .share-code span {
+    color: var(--fe-muted);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.fe-file-page .share-code strong {
+    color: var(--fe-text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: clamp(24px, 7vw, 36px);
+    line-height: 1;
+    letter-spacing: 0;
+}
+
+.fe-file-page .details {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+.fe-file-page .details div {
+    border-top: 1px solid var(--fe-border-strong);
+    padding-top: 12px;
+}
+
+.fe-file-page dt {
+    margin-bottom: 5px;
+    color: var(--fe-muted);
+    font-size: 13px;
+}
+
+.fe-file-page dd {
+    margin: 0;
+    color: var(--fe-text);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.fe-file-page form {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.fe-file-page .download-form {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+}
+
+.fe-file-page input,
+.fe-admin input,
+.fe-admin textarea,
+.fe-admin select {
+    width: 100%;
+    border: 1px solid var(--fe-border-strong);
+    border-radius: var(--fe-radius-control);
+    background: var(--fe-control-bg);
+    color: var(--fe-text);
+    font: inherit;
+    outline: none;
+}
+
+.fe-file-page input {
+    min-height: 42px;
+    padding: 0 12px;
+}
+
+.fe-file-page input:focus,
+.fe-admin input:focus,
+.fe-admin textarea:focus,
+.fe-admin select:focus {
+    border-color: hsl(var(--heroui-primary));
+    box-shadow: 0 0 0 3px hsl(var(--heroui-primary) / .16);
+}
+
+.fe-file-page .toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: var(--fe-radius-control);
+    background: rgb(17 24 39 / .92);
+    color: #fff;
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+.fe-admin {
+    padding: 24px;
+}
+
+.fe-admin main {
+    width: min(100%, 1280px);
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    gap: 22px;
+}
+
+.fe-admin main > *,
+.fe-admin .grid,
+.fe-admin .two,
+.fe-admin .two > *,
+.fe-admin section,
+.fe-admin .card {
+    min-width: 0;
+}
+
+.fe-admin header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: 1px solid var(--fe-border);
+    border-radius: 999px;
+    background: var(--fe-nav-bg);
+    padding: 12px 16px;
+    box-shadow: var(--fe-shadow);
+    backdrop-filter: blur(28px);
+}
+
+.fe-admin h1,
+.fe-admin h2,
+.fe-admin h3 {
+    margin: 0;
+    color: var(--fe-text);
+    letter-spacing: 0;
+}
+
+.fe-admin h1 {
+    font-size: 24px;
+}
+
+.fe-admin h2 {
+    font-size: 18px;
+}
+
+.fe-admin h3 {
+    font-size: 15px;
+}
+
+.fe-admin a {
+    color: hsl(var(--heroui-primary));
+}
+
+.fe-admin section,
+.fe-admin .card {
+    border: 1px solid var(--fe-border);
+    border-radius: var(--fe-radius-card);
+    background: var(--fe-panel-bg);
+    box-shadow: var(--fe-shadow);
+    padding: 16px;
+    backdrop-filter: var(--fe-blur);
+}
+
+.fe-admin .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.fe-admin .two {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+}
+
+.fe-admin .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.fe-admin .card span {
+    display: block;
+    color: var(--fe-muted);
+    font-size: 13px;
+}
+
+.fe-admin .card strong {
+    display: block;
+    margin-top: 8px;
+    color: var(--fe-text);
+    font-size: 24px;
+    overflow-wrap: anywhere;
+}
+
+.fe-admin table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--fe-text);
+    font-size: 14px;
+}
+
+.fe-admin th,
+.fe-admin td {
+    border-bottom: 1px solid var(--fe-border-strong);
+    padding: 10px 8px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.fe-admin th {
+    color: var(--fe-muted);
+    font-weight: 700;
+}
+
+.fe-admin form.inline {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    margin: 2px;
+}
+
+.fe-admin input,
+.fe-admin textarea,
+.fe-admin select {
+    padding: 9px 10px;
+}
+
+.fe-admin label {
+    display: grid;
+    gap: 6px;
+    color: var(--fe-muted);
+    font-size: 13px;
+}
+
+.fe-admin .settings,
+.fe-admin .filter {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.fe-admin .filter {
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    margin: 14px 0;
+}
+
+.fe-admin .status {
+    border: 1px solid hsl(var(--heroui-success) / .18);
+    border-radius: var(--fe-radius-control);
+    background: hsl(var(--heroui-success) / .12);
+    color: #047857;
+    padding: 10px 12px;
+}
+
+.dark .fe-admin .status {
+    color: #86efac;
+}
+
+.fe-admin .scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.fe-admin .trend {
+    display: grid;
+    gap: 9px;
+    margin-top: 14px;
+}
+
+.fe-admin .trend-row {
+    display: grid;
+    grid-template-columns: 58px 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    font-size: 13px;
+}
+
+.fe-admin .bar {
+    min-height: 10px;
+    border-radius: 999px;
+    background: hsl(var(--heroui-default-200) / .72);
+    overflow: hidden;
+}
+
+.fe-admin .bar span {
+    display: block;
+    height: 10px;
+    border-radius: inherit;
+    background: hsl(var(--heroui-primary));
+}
+
+.fe-admin .bar.download span {
+    background: hsl(var(--heroui-success));
+}
+
+.fe-brand-logo {
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.fe-brand-logo img {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+}
+
+.fe-brand-logo span {
+    display: grid;
+    gap: 1px;
+    line-height: 1.05;
+}
+
+.fe-brand-logo strong {
+    color: var(--fe-text);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.fe-brand-logo small {
+    color: var(--fe-muted);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.fi-body,
+.fi-simple-layout {
+    background: var(--fe-page-bg) !important;
+    color: var(--fe-text);
+    font-family: 'MiSans', 'Microsoft YaHei', system-ui, sans-serif !important;
+}
+
+.fi-simple-main {
+    border: 1px solid var(--fe-border) !important;
+    border-radius: var(--fe-radius-panel) !important;
+    background: var(--fe-panel-bg) !important;
+    box-shadow: var(--fe-shadow) !important;
+    backdrop-filter: var(--fe-blur);
+}
+
+.fi-topbar,
+.fi-sidebar {
+    border-color: var(--fe-border) !important;
+    background: var(--fe-nav-bg) !important;
+    backdrop-filter: blur(28px);
+}
+
+.fi-sidebar-header {
+    background: transparent !important;
+}
+
+.fi-main,
+.fi-main-ctn {
+    background: transparent !important;
+}
+
+.fi-section,
+.fi-ta-ctn,
+.fi-wi-widget,
+.fi-in-section {
+    border: 1px solid var(--fe-border) !important;
+    border-radius: var(--fe-radius-card) !important;
+    background: var(--fe-panel-bg) !important;
+    box-shadow: var(--fe-shadow) !important;
+    backdrop-filter: var(--fe-blur);
+}
+
+.fi-section-content,
+.fi-ta-content,
+.fi-ta-header,
+.fi-ta-footer {
+    background: transparent !important;
+}
+
+.fi-btn {
+    border-radius: var(--fe-radius-control) !important;
+    font-weight: 700 !important;
+}
+
+.fi-input-wrp,
+.fi-select-input,
+.fi-input,
+.fi-textarea,
+.choices__inner {
+    border-radius: var(--fe-radius-control) !important;
+    background: var(--fe-control-bg) !important;
+}
+
+.fi-sidebar-item-btn,
+.fi-dropdown-list-item,
+.fi-tabs-item {
+    border-radius: 999px !important;
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn,
+.fi-tabs-item.fi-active {
+    background: hsl(var(--heroui-primary) / .1) !important;
+}
+
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-label,
+.fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon {
+    color: hsl(var(--heroui-primary)) !important;
+}
+
+.fi-badge {
+    border-radius: 999px !important;
+}
+
+.fe-admin-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.fe-admin-stat {
+    border: 1px solid var(--fe-border);
+    border-radius: var(--fe-radius-card);
+    background: var(--fe-panel-bg);
+    box-shadow: var(--fe-shadow);
+    padding: 18px;
+    backdrop-filter: var(--fe-blur);
+}
+
+.fe-admin-stat span {
+    display: block;
+    color: var(--fe-muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.fe-admin-stat strong {
+    display: block;
+    margin-top: 8px;
+    color: var(--fe-text);
+    font-size: 28px;
+    line-height: 1;
+}
+
+@media (max-width: 720px) {
+    .fe-install {
+        padding: 12px;
+    }
+
+    .fe-install .install-nav,
+    .fe-install .install-hero {
+        align-items: flex-start;
+        border-radius: var(--fe-radius-card);
+        flex-direction: column;
+    }
+
+    .fe-install .install-grid,
+    .fe-install .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fe-install .install-steps {
+        flex-wrap: wrap;
+    }
+
+    .fe-install .install-summary,
+    .fe-install .segmented {
+        width: 100%;
+    }
+
+    .fe-install .segmented label {
+        flex: 1;
+    }
+
+    .fe-install .segmented span {
+        min-width: 0;
+    }
+
+    .fe-install .install-actions {
+        justify-content: stretch;
+    }
+
+    .fe-install .install-actions button {
+        width: 100%;
+    }
+
+    .fe-admin {
+        padding: 12px;
+    }
+
+    .fe-admin header {
+        align-items: flex-start;
+        border-radius: var(--fe-radius-card);
+        flex-direction: column;
+    }
+
+    .fe-admin .two {
+        grid-template-columns: 1fr;
+    }
+
+    .fe-admin .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fe-admin table {
+        min-width: 560px;
+    }
+
+    .fe-file-page {
+        align-items: end;
+        padding: 12px;
+    }
+
+    .fe-file-page .panel {
+        border-radius: var(--fe-radius-panel);
+        padding: 22px;
+    }
+
+    .fe-file-page .download-form {
+        grid-template-columns: 1fr;
+    }
+}

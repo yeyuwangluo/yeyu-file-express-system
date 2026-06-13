@@ -1,0 +1,859 @@
+.fe-file-page {
+    --fe-border: rgba(37, 99, 235, .14);
+    --fe-border-strong: rgba(71, 85, 105, .16);
+    --fe-control-bg: #f8fafc;
+    --fe-muted: #526174;
+    --fe-panel-bg: rgba(255, 255, 255, .94);
+    --fe-panel-bg-solid: #ffffff;
+    --fe-surface-bg: rgba(241, 245, 249, .72);
+    --fe-surface-bg-strong: rgba(226, 232, 240, .82);
+    --fe-shadow: 0 28px 72px -48px rgba(15, 23, 42, .42);
+    --fe-text: #111827;
+    --fe-blur: blur(22px);
+    --heroui-background: 0 0% 100%;
+    --heroui-default-100: 220 14% 96%;
+    --heroui-primary: 221 83% 53%;
+    --heroui-primary-400: 213 94% 68%;
+    --heroui-primary-700: 224 76% 48%;
+    background:
+        radial-gradient(circle at 18% 0%, rgba(59, 130, 246, .16), transparent 34%),
+        radial-gradient(circle at 84% 12%, rgba(20, 184, 166, .12), transparent 28%),
+        linear-gradient(180deg, #eef6ff 0%, #f8fbff 46%, #eef2f7 100%);
+    color: var(--fe-text);
+    font-family: MiSans, "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    padding: 24px;
+    display: grid;
+    place-items: center;
+    /* 确保页面可以滚动 */
+    overflow-y: auto;
+}
+
+.fe-file-page .panel {
+    width: min(100%, 640px);
+    max-width: 640px;
+    /* 添加最大高度和滚动功能 */
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    border: 1px solid var(--fe-border);
+    border-radius: 16px;
+    background: var(--fe-panel-bg);
+    box-shadow: var(--fe-shadow);
+    backdrop-filter: var(--fe-blur);
+    padding: 28px;
+    /* 优化滚动体验 */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, .3) transparent;
+}
+
+/* 自定义滚动条样式 */
+.fe-file-page .panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fe-file-page .panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.fe-file-page .panel::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, .3);
+    border-radius: 3px;
+}
+
+.fe-file-page .panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, .5);
+}
+
+.fe-file-page .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    /* 确保品牌部分不被截断 */
+    flex-shrink: 0;
+}
+
+.fe-file-page .brand img {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex: 0 0 auto;
+}
+
+.fe-file-page .brand div {
+    min-width: 0;
+    /* 允许品牌名称换行 */
+    overflow-wrap: anywhere;
+}
+
+.fe-file-page .brand strong {
+    display: block;
+    color: var(--fe-text);
+    font-size: 17px;
+    font-weight: 850;
+    line-height: 1.25;
+}
+
+.fe-file-page .brand span {
+    display: block;
+    margin-top: 2px;
+    color: var(--fe-muted);
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+.fe-file-page h1 {
+    margin: 0 0 12px;
+    color: var(--fe-text);
+    font-size: clamp(25px, 5vw, 34px);
+    line-height: 1.18;
+    font-weight: 900;
+    letter-spacing: 0;
+    /* 改进文件名显示 */
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    /* 添加边距防止换行时重叠 */
+    padding-right: 4px;
+}
+
+.fe-file-page .muted {
+    margin: 0 0 18px;
+    color: var(--fe-muted);
+    font-size: 15px;
+    line-height: 1.75;
+    /* 允许说明文字换行 */
+    word-wrap: break-word;
+}
+
+.fe-file-page .badge {
+    display: inline-flex;
+    width: fit-content;
+    margin-bottom: 14px;
+    padding: 5px 10px;
+    border: 1px solid hsl(var(--heroui-primary) / .14);
+    border-radius: 8px;
+    background: hsl(var(--heroui-primary) / .1);
+    color: hsl(var(--heroui-primary-700));
+    font-size: 12px;
+    font-weight: 800;
+    /* 确保徽章不被截断 */
+    flex-shrink: 0;
+}
+
+.dark .fe-file-page .badge {
+    color: hsl(var(--heroui-primary-400));
+}
+
+.fe-file-page .badge.warning {
+    border-color: hsl(var(--heroui-warning) / .18);
+    background: hsl(var(--heroui-warning) / .12);
+    color: #b45309;
+}
+
+.dark .fe-file-page .badge.warning {
+    color: #fbbf24;
+}
+
+.fe-file-page .badge.danger {
+    border-color: hsl(var(--heroui-danger) / .18);
+    background: hsl(var(--heroui-danger) / .12);
+    color: #b91c1c;
+}
+
+.dark .fe-file-page .badge.danger {
+    color: #fca5a5;
+}
+
+.fe-file-page .share-code {
+    display: grid;
+    gap: 5px;
+    margin: 18px 0;
+    padding: 14px 16px;
+    border: 1px solid rgba(37, 99, 235, .18);
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(219, 234, 254, .94), rgba(240, 253, 250, .82));
+    /* 确保分享码区域不被压缩 */
+    flex-shrink: 0;
+}
+
+.fe-file-page .share-code span {
+    color: var(--fe-muted);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.fe-file-page .share-code strong {
+    color: var(--fe-text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: clamp(25px, 7vw, 38px);
+    line-height: 1;
+    letter-spacing: 0;
+    /* 允许分享码换行 */
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+
+.fe-file-page .details {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+.fe-file-page .details div {
+    padding: 12px 14px;
+    border: 1px solid var(--fe-border-strong);
+    border-radius: 12px;
+    background: rgba(248, 250, 252, .82);
+}
+
+.fe-file-page dt {
+    margin: 0 0 5px;
+    color: var(--fe-muted);
+    font-size: 13px;
+}
+
+.fe-file-page dd {
+    margin: 0;
+    color: var(--fe-text);
+    font-weight: 750;
+    /* 改进文件名在详情中的显示 */
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+}
+
+.fe-file-page form {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+    /* 确保表单不被压缩 */
+    flex-shrink: 0;
+}
+
+.fe-file-page .download-form {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    /* 在移动端确保按钮可见 */
+    gap: 10px;
+}
+
+.fe-file-page input {
+    width: 100%;
+    min-height: 42px;
+    border: 1px solid var(--fe-border-strong);
+    border-radius: 8px;
+    background: var(--fe-control-bg);
+    color: var(--fe-text);
+    font: inherit;
+    outline: none;
+    padding: 0 12px;
+    /* 防止输入框溢出 */
+    box-sizing: border-box;
+}
+
+.fe-file-page input::placeholder {
+    color: rgba(147, 164, 184, .74);
+}
+
+.fe-file-page input:focus {
+    border-color: hsl(var(--heroui-primary));
+    box-shadow: 0 0 0 3px hsl(var(--heroui-primary) / .16);
+}
+
+.fe-file-page select {
+    min-height: 42px;
+    border: 1px solid var(--fe-border-strong);
+    border-radius: 8px;
+    background: var(--fe-control-bg);
+    color: var(--fe-text);
+    font: inherit;
+    outline: none;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+.fe-file-page select:focus {
+    border-color: hsl(var(--heroui-primary));
+    box-shadow: 0 0 0 3px hsl(var(--heroui-primary) / .16);
+}
+
+.fe-file-page .actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 18px;
+    /* 确保操作按钮始终可见 */
+    flex-shrink: 0;
+    position: static;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    /* 防止按钮被覆盖 */
+    z-index: auto;
+}
+
+.fe-file-page button,
+.fe-file-page .actions a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    min-width: 0;
+    border: 0;
+    border-radius: 12px;
+    background: #2563eb;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 760;
+    line-height: 1;
+    text-decoration: none;
+    padding: 0 16px;
+    box-shadow: none;
+    transition: transform .14s ease, background-color .14s ease, color .14s ease, border-color .14s ease;
+    /* 确保按钮不被压缩 */
+    white-space: nowrap;
+}
+
+.fe-file-page button:hover,
+.fe-file-page .actions a:hover {
+    background: #1d4ed8;
+}
+
+.fe-file-page button:active,
+.fe-file-page .actions a:active {
+    transform: scale(.97);
+}
+
+.fe-file-page .actions a:last-child {
+    background: transparent;
+    color: var(--fe-text);
+}
+
+.fe-file-page .secondary-link,
+.fe-file-page .actions a.secondary-link,
+.fe-file-page .actions button[disabled] {
+    border: 1px solid var(--fe-border);
+    background: #edf3fa;
+    color: var(--fe-text);
+    box-shadow: none;
+}
+
+.fe-file-page .secondary-link:hover,
+.fe-file-page .actions a.secondary-link:hover,
+.fe-file-page .actions button[disabled]:hover {
+    background: #e2eaf4;
+}
+
+body.my-files-page .panel {
+    width: min(1180px, calc(100% - 32px));
+    max-width: 1180px;
+}
+
+.my-files-page .my-files-primary-actions {
+    grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+}
+
+.my-files-page .my-files-filter-row {
+    display: grid;
+    grid-template-columns: minmax(240px, 1.4fr) minmax(150px, .8fr) minmax(150px, .8fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.my-files-page .my-files-batch-row {
+    grid-template-columns: minmax(220px, 1fr) minmax(280px, 1.5fr) minmax(150px, .8fr) minmax(130px, .7fr);
+}
+
+.my-files-page .my-files-table-wrap {
+    margin-top: 18px;
+    overflow: auto;
+    border: 1px solid rgba(148, 163, 184, .18);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .68);
+}
+
+.my-files-page .my-files-table-wrap.compact {
+    margin-top: 12px;
+}
+
+.my-files-page .my-files-table {
+    width: 100%;
+    min-width: 860px;
+    border-collapse: collapse;
+}
+
+.my-files-page .my-files-table.batch-table {
+    min-width: 760px;
+}
+
+.my-files-page .my-files-table th,
+.my-files-page .my-files-table td {
+    border-bottom: 1px solid rgba(148, 163, 184, .18);
+    padding: 12px 10px;
+    color: var(--fe-text);
+    font-size: 13px;
+    line-height: 1.55;
+    text-align: left;
+    vertical-align: top;
+}
+
+.my-files-page .my-files-table th {
+    background: rgba(241, 245, 249, .76);
+    color: #475569;
+    font-size: 12px;
+    font-weight: 850;
+    letter-spacing: .02em;
+}
+
+.my-files-page .my-files-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.my-files-page .my-files-table button,
+.my-files-page .my-files-section-head button,
+.my-files-page .mobile-cards td button,
+.my-files-page .mobile-cards td a {
+    width: auto;
+    min-width: 0;
+    min-height: 34px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+    padding: 0 10px;
+    box-shadow: none;
+    white-space: nowrap;
+}
+
+.my-files-page .my-files-table a {
+    color: #1d4ed8;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.my-files-page .my-files-table a:hover {
+    text-decoration: underline;
+}
+
+.my-files-page .my-files-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.my-files-page .my-files-section-head strong {
+    color: var(--fe-text) !important;
+    font-size: 16px;
+}
+
+.fe-file-page .file-callout {
+    border-color: var(--fe-border) !important;
+    background: rgba(248, 250, 252, .82) !important;
+    color: var(--fe-text) !important;
+}
+
+.fe-file-page .file-callout strong,
+.fe-file-page .file-callout div,
+.fe-file-page .file-callout span {
+    color: inherit !important;
+}
+
+.fe-file-page .file-callout.safe {
+    border-color: rgba(52, 211, 153, .22) !important;
+    background: rgba(236, 253, 245, .88) !important;
+    color: #065f46 !important;
+}
+
+.fe-file-page .file-callout.warn {
+    border-color: rgba(245, 158, 11, .24) !important;
+    background: rgba(255, 251, 235, .9) !important;
+    color: #92400e !important;
+}
+
+.fe-file-page .file-callout.danger {
+    border-color: rgba(248, 113, 113, .24) !important;
+    background: rgba(254, 242, 242, .9) !important;
+    color: #991b1b !important;
+}
+
+.fe-file-page .threat-chip {
+    border: 1px solid rgba(248, 113, 113, .22);
+    background: rgba(239, 68, 68, .12);
+}
+
+.fe-file-page .archive-scan-report {
+    display: grid;
+    gap: 14px;
+    margin-top: 18px;
+    padding: 16px;
+    border: 1px solid rgba(148, 163, 184, .2);
+    border-radius: 16px;
+    background: rgba(248, 250, 252, .84);
+    color: var(--fe-text);
+}
+
+.fe-file-page .archive-scan-report.safe {
+    border-color: rgba(52, 211, 153, .28);
+    background: rgba(236, 253, 245, .78);
+}
+
+.fe-file-page .archive-scan-report.danger {
+    border-color: rgba(248, 113, 113, .28);
+    background: rgba(254, 242, 242, .84);
+}
+
+.fe-file-page .archive-scan-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.fe-file-page .archive-scan-head strong {
+    display: block;
+    color: var(--fe-text);
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 1.3;
+}
+
+.fe-file-page .archive-scan-head span {
+    display: block;
+    margin-top: 4px;
+    color: var(--fe-muted);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.fe-file-page .archive-scan-status {
+    flex: 0 0 auto;
+    margin-top: 0 !important;
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 12px !important;
+    font-weight: 900;
+    line-height: 1.2 !important;
+}
+
+.fe-file-page .archive-scan-status.safe {
+    background: rgba(16, 185, 129, .14);
+    color: #047857;
+}
+
+.fe-file-page .archive-scan-status.partial {
+    background: rgba(245, 158, 11, .15);
+    color: #b45309;
+}
+
+.fe-file-page .archive-scan-status.danger {
+    background: rgba(239, 68, 68, .14);
+    color: #b91c1c;
+}
+
+.fe-file-page .archive-scan-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.fe-file-page .archive-scan-stats div {
+    padding: 10px 12px;
+    border: 1px solid rgba(148, 163, 184, .2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .62);
+}
+
+.fe-file-page .archive-scan-stats span {
+    display: block;
+    color: var(--fe-muted);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.fe-file-page .archive-scan-stats strong {
+    display: block;
+    margin-top: 4px;
+    color: var(--fe-text);
+    font-size: 18px;
+    font-weight: 920;
+}
+
+.fe-file-page .archive-scan-section {
+    display: grid;
+    gap: 10px;
+}
+
+.fe-file-page .archive-scan-section > strong {
+    color: var(--fe-text);
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.fe-file-page .archive-entry-list {
+    display: grid;
+    gap: 8px;
+}
+
+.fe-file-page .archive-entry {
+    display: grid;
+    gap: 6px;
+    padding: 10px 12px;
+    border: 1px solid rgba(148, 163, 184, .18);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .64);
+}
+
+.fe-file-page .archive-entry.danger {
+    border-color: rgba(248, 113, 113, .26);
+    background: rgba(255, 255, 255, .74);
+}
+
+.fe-file-page .archive-entry strong {
+    display: block;
+    color: var(--fe-text);
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.fe-file-page .archive-entry span,
+.fe-file-page .archive-entry p {
+    margin: 0;
+    color: var(--fe-muted);
+    font-size: 12px;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+
+.fe-file-page .archive-entry.danger p {
+    color: #991b1b;
+    font-weight: 700;
+}
+
+.fe-file-page .archive-skip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.fe-file-page .archive-skip-list span {
+    max-width: 100%;
+    padding: 6px 9px;
+    border: 1px solid rgba(148, 163, 184, .2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .66);
+    color: var(--fe-muted);
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.file-share-toast-host {
+    position: fixed;
+    right: auto;
+    bottom: auto;
+    left: 50%;
+    top: max(18px, env(safe-area-inset-top));
+    z-index: 10000;
+    width: auto;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    max-width: calc(100vw - 32px);
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.file-share-toast {
+    display: block;
+    box-sizing: border-box;
+    width: auto;
+    height: auto;
+    min-width: 92px;
+    max-width: 180px;
+    min-height: 36px;
+    max-height: 44px;
+    border-radius: 8px;
+    background: rgb(17 24 39 / .94);
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 20px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-shadow: 0 12px 28px -20px rgb(15 23 42 / .8);
+    pointer-events: none;
+}
+
+/* 移动端优化 */
+@media (max-width: 720px) {
+    .fe-file-page {
+        align-items: flex-start;
+        padding: 12px;
+        /* 确保移动端可以滚动 */
+        display: block;
+    }
+
+    .fe-file-page .panel {
+        padding: 22px;
+        max-height: calc(100vh - 24px);
+        /* 优化移动端滚动 */
+        border-radius: 8px;
+    }
+
+    .fe-file-page .download-form {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .fe-file-page .actions {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        position: static;
+        background: transparent;
+        padding-top: 12px;
+    }
+
+    .fe-file-page .actions > * {
+        min-width: 100%;
+    }
+
+    .fe-file-page .archive-scan-head {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .fe-file-page .archive-scan-status {
+        width: fit-content;
+    }
+
+    .fe-file-page .archive-scan-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.my-files-page .panel {
+        width: min(100% - 18px, 1180px);
+        max-width: 1180px;
+    }
+
+    .my-files-page .my-files-filter-row,
+    .my-files-page .my-files-batch-row,
+    .my-files-page .my-files-primary-actions {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .my-files-page .my-files-table-wrap {
+        border: 0;
+        background: transparent;
+        overflow: visible;
+    }
+
+    .my-files-page .my-files-table,
+    .my-files-page .my-files-table.batch-table {
+        min-width: 0;
+    }
+
+    .my-files-page .mobile-cards tr {
+        border: 1px solid rgba(148, 163, 184, .18);
+        background: rgba(255, 255, 255, .72);
+    }
+
+    .my-files-page .my-files-section-head {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .my-files-page .my-files-section-head button {
+        width: 100%;
+        min-height: 42px;
+    }
+}
+
+/* 小屏幕设备优化 */
+@media (max-width: 480px) {
+    .fe-file-page .panel {
+        padding: 18px;
+        max-height: calc(100vh - 24px);
+    }
+
+    .fe-file-page h1 {
+        font-size: clamp(20px, 6vw, 28px);
+    }
+
+    .fe-file-page .share-code strong {
+        font-size: clamp(20px, 8vw, 32px);
+    }
+
+    .fe-file-page button,
+    .fe-file-page .actions a {
+        min-height: 44px;
+        font-size: 15px;
+    }
+
+    .my-files-page .my-files-table button,
+    .my-files-page .mobile-cards td button,
+    .my-files-page .mobile-cards td a {
+        width: auto;
+        min-height: 34px;
+        font-size: 12px;
+    }
+}
+
+/* 超小屏幕设备优化 */
+@media (max-width: 360px) {
+    .fe-file-page {
+        padding: 8px;
+    }
+
+    .fe-file-page .panel {
+        padding: 16px;
+        max-height: calc(100vh - 16px);
+    }
+
+    .fe-file-page .brand img {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+    .fe-file-page {
+        --fe-border: rgba(148, 163, 184, .24);
+        --fe-border-strong: rgba(148, 163, 184, .18);
+        --fe-control-bg: rgba(15, 23, 42, .46);
+        --fe-muted: #9aa4b2;
+        --fe-panel-bg: rgba(24, 31, 43, .86);
+        --fe-shadow: 0 24px 60px -42px rgba(0, 0, 0, .74);
+        --fe-text: #f8fafc;
+        --heroui-background: 222 47% 11%;
+        --heroui-default-100: 215 25% 20%;
+        background: #10141c;
+    }
+
+    /* 深色模式下的滚动条 */
+    .fe-file-page .panel::-webkit-scrollbar-thumb {
+        background: rgba(148, 163, 184, .4);
+    }
+
+    .fe-file-page .panel::-webkit-scrollbar-thumb:hover {
+        background: rgba(148, 163, 184, .6);
+    }
+}

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="叶宇文件快递服务状态、存储用量、上传下载统计和安全扫描统计。">
+  <title>服务状态 - 叶宇文件快递</title>
+  <link rel="icon" href="/qrlogo.png?v=2">
+  <link rel="stylesheet" href="/fonts/misans/font.css">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #667085;
+      --line: #e5e7eb;
+      --green: #059669;
+      --yellow: #d97706;
+      --red: #dc2626;
+      --blue: #2563eb;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 34%), var(--bg);
+      color: var(--text);
+      font-family: MiSans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 48px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .brand img {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 46px);
+      letter-spacing: -0.04em;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--card);
+      padding: 10px 15px;
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    .button.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #ffffff;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .card {
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.88);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .status-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 190px;
+    }
+
+    .status-line {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 999px;
+      background: var(--yellow);
+      box-shadow: 0 0 0 6px rgba(217, 119, 6, 0.12);
+    }
+
+    .dot.healthy {
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(5, 150, 105, 0.12);
+    }
+
+    .dot.down, .dot.degraded {
+      background: var(--red);
+      box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.12);
+    }
+
+    .status-text {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .metric-title {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .metric-value {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .metric-sub {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 14px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .tile {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: #ffffff;
+    }
+
+    .tile span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .tile strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .bar {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e5e7eb;
+    }
+
+    .bar > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #60a5fa, #2563eb);
+      transition: width 220ms ease;
+    }
+
+    .checks {
+      display: grid;
+      gap: 8px;
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: 84px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #ffffff;
+      font-size: 13px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: #ecfdf5;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .badge.degraded, .badge.down {
+      background: #fef2f2;
+      color: var(--red);
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .error {
+      border-color: rgba(220, 38, 38, 0.25);
+      color: var(--red);
+    }
+
+    @media (max-width: 860px) {
+      .hero, .summary, .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+
+      .tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 540px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+        padding-top: 18px;
+      }
+
+      .card {
+        border-radius: 18px;
+        padding: 14px;
+      }
+
+      .tiles, .check-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="brand">
+        <img src="/qrlogo.png" alt="叶宇文件快递">
+        <div>
+          <p class="eyebrow">服务状态中心</p>
+          <h1 id="page-title">叶宇文件快递运行状态</h1>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="button" href="/">返回首页</a>
+        <button class="button primary" id="refresh-button" type="button">立即刷新</button>
+      </div>
+    </section>
+
+    <section class="summary" aria-label="核心状态">
+      <article class="card status-card">
+        <div>
+          <div class="status-line">
+            <span class="dot" id="status-dot" aria-hidden="true"></span>
+            <span class="status-text" id="status-text">加载中</span>
+          </div>
+          <p class="muted" id="status-detail">正在读取最新健康检查。</p>
+        </div>
+        <div>
+          <div class="bar" aria-label="存储用量"><span id="storage-bar"></span></div>
+          <p class="metric-sub" id="storage-detail">存储用量加载中</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <p class="metric-title">可用率</p>
+        <p class="metric-value" id="uptime-value">--</p>
+        <p class="metric-sub" id="uptime-detail">最近 12 次健康检查</p>
+      </article>
+
+      <article class="card">
+        <p class="metric-title">响应耗时</p>
+        <p class="metric-value" id="response-value">--</p>
+        <p class="metric-sub" id="db-response-value">数据库 --</p>
+      </article>
+
+      <article class="card">
+        <p class="metric-title">活跃文件</p>
+        <p class="metric-value" id="active-files-value">--</p>
+        <p class="metric-sub" id="lan-session-value">局域网会话 --</p>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <div class="section-title">
+          <h2>上传下载</h2>
+          <span class="muted">今日 / 近 7 天 / 总计</span>
+        </div>
+        <div class="tiles" id="usage-tiles"></div>
+      </article>
+
+      <article class="card">
+        <div class="section-title">
+          <h2>文件安全</h2>
+          <span class="muted">病毒扫描与 AI 恶意代码扫描</span>
+        </div>
+        <div class="tiles" id="security-tiles"></div>
+      </article>
+    </section>
+
+    <section class="grid" style="margin-top:14px">
+      <article class="card">
+        <div class="section-title">
+          <h2>运维健康</h2>
+          <span class="muted">队列、AI 与存储可写性</span>
+        </div>
+        <div class="tiles" id="operations-tiles"></div>
+      </article>
+
+      <article class="card">
+        <div class="section-title">
+          <h2>维护记录</h2>
+          <span class="muted">清理任务最近结果</span>
+        </div>
+        <div class="tiles" id="maintenance-tiles"></div>
+      </article>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="section-title">
+        <h2>最近健康检查</h2>
+        <span class="muted" id="last-updated">等待更新</span>
+      </div>
+      <div class="checks" id="checks-list"></div>
+    </section>
+
+    <p class="footer-note">页面每 30 秒自动更新；页面切到后台后暂停请求，回到前台后自动刷新。</p>
+  </main>
+
+  <script>
+    (function () {
+      const refreshButton = document.getElementById('refresh-button');
+      const intervalMs = 30000;
+      let timer = null;
+      let inFlight = null;
+
+      function text(id, value) {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value;
+      }
+
+      function formatNumber(value) {
+        return Number(value || 0).toLocaleString('zh-CN');
+      }
+
+      function formatPercent(value) {
+        return `${Number(value || 0).toFixed(1)}%`;
+      }
+
+      function formatBytes(bytes) {
+        const size = Number(bytes || 0);
+        if (size < 1024) return `${size} B`;
+        const units = ['KB', 'MB', 'GB', 'TB'];
+        let current = size / 1024;
+        let index = 0;
+        while (current >= 1024 && index < units.length - 1) {
+          current /= 1024;
+          index += 1;
+        }
+        return `${current.toFixed(current >= 10 ? 1 : 2)} ${units[index]}`;
+      }
+
+      function formatTime(timestamp) {
+        if (!timestamp) return '--';
+        const date = new Date(Number(timestamp));
+        if (Number.isNaN(date.getTime())) return '--';
+        return date.toLocaleString('zh-CN', { hour12: false });
+      }
+
+      function tile(label, value, sub) {
+        return `<div class="tile"><span>${label}</span><strong>${value}</strong><small class="muted">${sub}</small></div>`;
+      }
+
+      function statusLabel(status) {
+        if (status === 'healthy') return '运行正常';
+        if (status === 'degraded') return '服务降级';
+        if (status === 'down') return '服务中断';
+        return '检查中';
+      }
+
+      function renderUsage(usage, storageType) {
+        const today = usage?.today || {};
+        const last7d = usage?.last7d || {};
+        const total = usage?.total || {};
+        document.getElementById('usage-tiles').innerHTML = [
+          tile('今日上传', formatNumber(today.uploadCount), formatBytes(today.uploadSize)),
+          tile('今日下载', formatNumber(today.downloadCount), formatBytes(today.downloadSize)),
+          tile('近 7 天上传', formatNumber(last7d.uploadCount), formatBytes(last7d.uploadSize)),
+          tile('近 7 天下载', formatNumber(last7d.downloadCount), formatBytes(last7d.downloadSize)),
+          tile('累计上传', formatNumber(total.uploadCount), formatBytes(total.uploadSize)),
+          tile('累计下载', formatNumber(total.downloadCount), formatBytes(total.downloadSize)),
+          tile('文件总数', formatNumber(total.totalFiles), `过期 ${formatNumber(total.expiredFiles)}`),
+          tile('存储类型', storageType === 'cloud' ? 'Cloud' : 'Local', storageType === 'cloud' ? '云存储' : '本地存储'),
+        ].join('');
+      }
+
+      function renderSecurity(data) {
+        const virus = data.virusScan?.total || {};
+        const malware = data.malwareScan?.total || {};
+        document.getElementById('security-tiles').innerHTML = [
+          tile('病毒扫描安全', formatNumber(virus.clean), `感染率 ${formatPercent(virus.infectionRate)}`),
+          tile('病毒命中', formatNumber(virus.infected), `等待 ${formatNumber(virus.pending)}`),
+          tile('AI 扫描安全', formatNumber(malware.clean), `风险率 ${formatPercent(malware.infectionRate)}`),
+          tile('AI 风险命中', formatNumber(malware.infected), `等待 ${formatNumber(malware.pending)}`),
+        ].join('');
+      }
+
+      function renderChecks(checks) {
+        const list = document.getElementById('checks-list');
+        const rows = (checks || []).slice(0, 8).map((item) => {
+          const status = item.status || 'unknown';
+          return `<div class="check-row"><span class="badge ${status}">${statusLabel(status)}</span><span>${formatTime(item.checkedAt)}</span><strong>${formatNumber(item.responseTime)} ms</strong></div>`;
+        });
+        list.innerHTML = rows.length ? rows.join('') : '<div class="tile">暂无健康检查记录</div>';
+      }
+
+      function renderOperations(data) {
+        const operations = data.operations || {};
+        const queue = operations.queue || {};
+        const ai = operations.ai || {};
+        const writable = operations.storageWritable || {};
+        const cleanup = data.cleanup || {};
+        const writableSummary = Object.entries(writable).map(([key, value]) => `${key}:${value ? '可写' : '异常'}`).join('；') || '暂无目录信息';
+        document.getElementById('operations-tiles').innerHTML = [
+          tile('健康评分', formatNumber(operations.healthScore), '满分 100'),
+          tile('待处理队列', formatNumber(queue.pendingJobs), `可处理失败 ${formatNumber(queue.actionableFailedJobs)} / 总失败 ${formatNumber(queue.failedJobs)}`),
+          tile('队列心跳', queue.workerHeartbeatFresh ? '正常' : '待确认', queue.workerHeartbeatAt || '--'),
+          tile('AI 服务', ai.status || 'unknown', ai.message || '--'),
+          tile('目录权限', Object.values(writable).every(Boolean) ? '正常' : '异常', writableSummary),
+        ].join('');
+        document.getElementById('maintenance-tiles').innerHTML = [
+          tile('LAN 清理', cleanup.lastAt || '--', cleanup.lanCleanupSummary || '--'),
+          tile('日志清理', cleanup.logPruneLastAt || '--', cleanup.logPruneSummary || '--'),
+          tile('最近运维操作', queue.lastOperationAt || '--', '后台维护与重派发记录'),
+          tile('AI 响应耗时', ai.responseTime == null ? '--' : `${formatNumber(ai.responseTime)} ms`, ai.enabled ? '已启用' : '未启用'),
+        ].join('');
+      }
+
+      function render(data) {
+        const current = data.current || {};
+        const storage = current.storageUsage || {};
+        const status = current.status || 'unknown';
+        const dot = document.getElementById('status-dot');
+        dot.className = `dot ${status}`;
+
+        text('status-text', statusLabel(status));
+        text('status-detail', `存储 ${current.storageStatus || '--'}，最近检查 ${formatTime(current.lastChecked)}`);
+        text('uptime-value', formatPercent(data.uptime?.percentage));
+        text('uptime-detail', `最近检查 ${formatNumber(data.recentSummary?.totalChecks)} 次，峰值 ${formatNumber(data.recentSummary?.peakResponseTime)} ms`);
+        text('response-value', `${formatNumber(current.responseTime)} ms`);
+        text('db-response-value', `数据库 ${formatNumber(current.dbResponseTime)} ms`);
+        text('active-files-value', formatNumber(data.localRuntime?.activeFiles));
+        text('lan-session-value', `局域网会话 ${formatNumber(data.localRuntime?.lanSessions)}`);
+        const filesUsed = storage.usedByFiles ?? storage.used;
+        const directoryUsed = storage.usedByStorageDirectory ?? storage.used;
+        const directoryPercentage = storage.directoryPercentage ?? storage.percentage;
+        text('storage-detail', `分享文件 ${formatBytes(filesUsed)}；存储目录 ${formatBytes(directoryUsed)} / ${formatBytes(storage.limit)}，已用 ${formatPercent(directoryPercentage)}`);
+        text('last-updated', `更新于 ${formatTime(Date.now())}`);
+
+        document.getElementById('storage-bar').style.width = `${Math.min(Number(directoryPercentage || 0), 100)}%`;
+        renderUsage(data.usage || {}, storage.storageType);
+        renderSecurity(data);
+        renderOperations(data);
+        renderChecks(data.recentChecks || []);
+      }
+
+      function renderError(message) {
+        text('status-text', '读取失败');
+        text('status-detail', message || '状态接口暂时无法读取。');
+        document.querySelector('.status-card').classList.add('error');
+      }
+
+      async function loadStatus() {
+        if (inFlight) inFlight.abort();
+        const controller = new AbortController();
+        inFlight = controller;
+        const timeout = setTimeout(() => controller.abort(), 10000);
+        refreshButton.disabled = true;
+
+        try {
+          const response = await fetch('/api/v1/status', {
+            headers: { Accept: 'application/json' },
+            signal: controller.signal,
+            cache: 'no-store',
+          });
+          const result = await response.json();
+          if (!response.ok || result.code !== 0 || !result.data) throw new Error(result.message || '状态接口返回异常');
+          document.querySelector('.status-card').classList.remove('error');
+          render(result.data);
+        } catch (error) {
+          if (error.name !== 'AbortError') renderError(error.message);
+        } finally {
+          clearTimeout(timeout);
+          if (inFlight === controller) inFlight = null;
+          refreshButton.disabled = false;
+        }
+      }
+
+      function start() {
+        stop();
+        loadStatus();
+        timer = window.setInterval(loadStatus, intervalMs);
+      }
+
+      function stop() {
+        if (timer) window.clearInterval(timer);
+        timer = null;
+      }
+
+      refreshButton.addEventListener('click', loadStatus);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stop();
+          if (inFlight) inFlight.abort();
+          return;
+        }
+        start();
+      });
+
+      start();
+    })();
+  </script>
+</body>
+</html>

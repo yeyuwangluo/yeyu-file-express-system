@@ -1,0 +1,398 @@
+/* ============================================
+   小鑫文件快递 - 安装页面样式
+   ============================================ */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body.fe-page {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+               "PingFang SC", "MiSans", "Noto Sans SC", sans-serif;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Install Layout ---------- */
+.fe-install main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+/* ---------- Navigation ---------- */
+.install-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  margin-bottom: 32px;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.install-nav .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.install-nav .brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+}
+
+.install-nav .brand span {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.install-nav .brand strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+
+.install-nav .brand small {
+  font-size: 12px;
+  color: #86868b;
+  letter-spacing: .02em;
+}
+
+.install-steps {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  color: #86868b;
+}
+
+.install-steps span {
+  position: relative;
+  padding-left: 18px;
+}
+
+.install-steps span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #d2d2d7;
+  background: #fff;
+}
+
+/* ---------- Hero ---------- */
+.install-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 24px;
+}
+
+.install-hero .badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0071e3;
+  background: rgba(0,113,227,.08);
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.install-hero h1 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  margin-bottom: 6px;
+}
+
+.fe-muted {
+  color: #86868b;
+  font-size: 15px;
+}
+
+.install-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 24px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+  flex-shrink: 0;
+}
+
+.install-summary span {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1d1d1f;
+  font-variant-numeric: tabular-nums;
+}
+
+.install-summary strong {
+  font-size: 12px;
+  font-weight: 500;
+  color: #86868b;
+  margin-top: 2px;
+}
+
+/* ---------- Alert ---------- */
+.install-alert {
+  padding: 14px 18px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.install-alert.danger {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.install-alert strong {
+  font-weight: 600;
+}
+
+/* ---------- Grid Layout ---------- */
+.install-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .install-grid {
+    grid-template-columns: 1fr;
+  }
+  .install-hero {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .install-steps {
+    display: none;
+  }
+}
+
+/* ---------- Panel ---------- */
+.install-panel {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.04);
+}
+
+.install-panel h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: -.01em;
+}
+
+/* ---------- Environment Checks ---------- */
+.check-group {
+  margin-bottom: 20px;
+}
+
+.check-group h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #86868b;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 10px;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.check-row .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.check-row.ok .dot {
+  background: #34c759;
+}
+
+.check-row.bad .dot {
+  background: #ff3b30;
+}
+
+.check-row div {
+  display: flex;
+  flex-direction: column;
+}
+
+.check-row strong {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1d1d1f;
+}
+
+.check-row small {
+  font-size: 12px;
+  color: #86868b;
+}
+
+/* ---------- Form ---------- */
+.install-form section {
+  margin-bottom: 28px;
+}
+
+.section-head {
+  margin-bottom: 16px;
+}
+
+.section-head h2 {
+  margin-bottom: 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.install-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.install-form label.span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .install-form label.span-2 {
+    grid-column: span 1;
+  }
+}
+
+.install-form input[type="text"],
+.install-form input[type="email"],
+.install-form input[type="password"],
+.install-form input[type="number"],
+.install-form input:not([type]) {
+  padding: 10px 14px;
+  border: 1px solid #d2d2d7;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fafafa;
+  color: #1d1d1f;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+  font-family: inherit;
+}
+
+.install-form input:focus {
+  border-color: #0071e3;
+  box-shadow: 0 0 0 3px rgba(0,113,227,.12);
+  background: #fff;
+}
+
+.field-error {
+  font-size: 12px;
+  font-weight: 500;
+  color: #ff3b30;
+}
+
+/* ---------- Segmented Control ---------- */
+.segmented {
+  display: flex;
+  background: #f5f5f7;
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 16px;
+  gap: 4px;
+}
+
+.segmented label {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  color: #86868b;
+  padding: 8px 0;
+  border-radius: 8px;
+  transition: color .2s, background .2s, box-shadow .2s;
+}
+
+.segmented input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmented input[type="radio"]:checked + span {
+  display: block;
+}
+
+.segmented label:has(input:checked) {
+  background: #fff;
+  color: #1d1d1f;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+/* ---------- DB Panel ---------- */
+.db-panel[hidden] {
+  display: none;
+}
+
+/* ---------- Actions ---------- */
+.install-actions {
+  padding-top: 8px;
+}
+
+.install-actions button {
+  width: 100%;
+  padding: 14px 24px;
+  background: #1d1d1f;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  font-family: inherit;
+}
+
+.install-actions button:hover {
+  background: #333;
+}
+
+.install-actions button:active {
+  transform: scale(.98);
+}
