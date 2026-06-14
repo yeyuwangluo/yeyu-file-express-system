@@ -43,6 +43,12 @@
 *backup_before*
 *backup_*
 *.broken
+404.html
+/public/lan-transfer-fixed.html
+/public/lan-transfer-new.html
+/public/umami-stub.js
+/public/virus-scan-report.html
+/public/virus-scan-status.html
 *.bak
 *.sql
 *.tar
