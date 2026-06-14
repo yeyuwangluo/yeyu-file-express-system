@@ -18,7 +18,17 @@
 
 ### 2. 环境变量
 
-在  文件中已添加以下配置：
+GitHub 仓库只保留 `.env.example` 模板，真实 `.env` 是服务器本地配置文件。部署时先在项目根目录生成 `.env`：
+
+```bash
+# 进入项目目录
+cd /www/wwwroot/yeyu-file-express-system
+
+# 从模板复制出服务器本地配置文件
+cp .env.example .env
+```
+
+然后在 `.env` 文件中添加或修改以下配置：
 
 # 网盘系统环境变量示例（替换为你自己的值）
 APP_NAME=叶宇文件快递
@@ -47,7 +57,7 @@ ADMIN_PASSWORD=change-me-immediately
 
 ### 方法二：直接修改环境变量
 
-编辑  文件，设置以下参数：
+编辑服务器项目根目录的 `.env` 文件，设置以下参数：
 
 -  - 启用123网盘功能
 -  - 浏览器Cookie信息

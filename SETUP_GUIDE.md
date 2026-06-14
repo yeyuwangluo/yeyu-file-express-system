@@ -98,7 +98,18 @@ npm run build
 
 ## 创建环境配置
 
+GitHub 仓库只包含 `.env.example` 模板文件。真正的 `.env` 是服务器本地文件，里面会保存数据库密码、应用密钥、后台初始密码和第三方服务密钥，因此不会提交到仓库。
+
+生产服务器上的 `.env` 路径示例：
+
+```text
+/www/wwwroot/yeyu-file-express-system/.env
+```
+
 ```bash
+# 进入项目目录
+cd /www/wwwroot/yeyu-file-express-system
+
 # 复制环境变量模板
 cp .env.example .env
 

@@ -11,13 +11,36 @@
 
 > 前端 CSS/JS 已预编译到 `public/_next/static/` 目录，部署时不需要 Node.js。
 
+## 关于 `.env` 文件
+
+GitHub 仓库中只保留 `.env.example` 模板文件。真正的 `.env` 是服务器本地配置文件，里面会保存数据库密码、应用密钥、管理员初始密码等敏感信息，因此不会提交到仓库，也不会在 GitHub 页面里看到。
+
+部署时在项目根目录生成 `.env`：
+
+```bash
+# 进入项目根目录
+cd /www/wwwroot/yeyu-file-express-system
+
+# 从模板复制出服务器本地配置文件
+cp .env.example .env
+
+# 生成 Laravel 应用密钥
+php artisan key:generate
+```
+
+生成后的文件路径是：
+
+```text
+/www/wwwroot/yeyu-file-express-system/.env
+```
+
 当前兼容基线是 Laravel 9.52，`composer.json` 已把 `config.platform.php` 固定为 `8.0.2`，用于保证普通 PHP 8.0 虚拟主机也能安装同一套依赖。不要在生产机直接改平台版本后执行 `composer update`，否则可能解析出不再兼容 PHP 8.0 的依赖。
 
 ## 本地启动
 
 ```bash
 composer install
-copy .env.example .env
+cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
 php artisan serve

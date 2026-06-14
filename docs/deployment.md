@@ -19,6 +19,31 @@
 - Supervisor 或同类进程守护工具
 - Node.js 18+，仅在服务器上重新构建前端资源时需要
 
+## `.env` 文件在哪里
+
+GitHub 上看不到 `.env` 文件是正常的。仓库只提交 `.env.example`，真正的 `.env` 需要部署到服务器后在项目根目录生成。
+
+生产服务器上的 `.env` 路径示例：
+
+```text
+/www/wwwroot/yeyu-file-express-system/.env
+```
+
+生成方式：
+
+```bash
+# 进入项目目录
+cd /www/wwwroot/yeyu-file-express-system
+
+# 从模板复制出服务器本地配置文件
+cp .env.example .env
+
+# 生成应用密钥
+php artisan key:generate
+```
+
+`.env` 会包含数据库密码、应用密钥、后台初始密码和第三方服务密钥，应只保存在服务器本地。
+
 ## 首次部署
 
 ```bash

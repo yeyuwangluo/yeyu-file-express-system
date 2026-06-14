@@ -70,7 +70,15 @@
 
 ## 环境变量配置 (可选)
 
-除了通过后台配置，也可以直接在.env文件中设置：
+除了通过后台配置，也可以直接在服务器项目根目录的 `.env` 文件中设置。GitHub 仓库只保留 `.env.example` 模板，真实 `.env` 需要部署时从模板复制生成：
+
+```bash
+# 进入项目目录
+cd /www/wwwroot/yeyu-file-express-system
+
+# 从模板复制出服务器本地配置文件
+cp .env.example .env
+```
 
 ### 阿里云OSS配置
 ```env
