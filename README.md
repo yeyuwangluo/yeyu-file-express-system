@@ -7,9 +7,10 @@
 - PHP 8.0.2+
 - Composer 2
 - MySQL 5.7+ 或 SQLite
+- Node.js 18+，用于构建 Vite 前端资源
 - Web 根目录指向 `public`
 
-> 前端 CSS/JS 已预编译到 `public/_next/static/` 目录，部署时不需要 Node.js。
+> 前端资源通过 Vite 构建到 `public/build`。仓库不提交构建产物，首次部署和更新时需要执行 `npm ci && npm run build`。
 
 ## 关于 `.env` 文件
 

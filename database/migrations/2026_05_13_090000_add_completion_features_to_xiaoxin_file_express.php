@@ -24,6 +24,15 @@ return new class extends Migration
             if (! Schema::hasColumn('files', 'risk_reasons_json')) {
                 $table->json('risk_reasons_json')->nullable()->after('risk_score');
             }
+            if (! Schema::hasColumn('files', 'malware_scan_passed')) {
+                $table->boolean('malware_scan_passed')->default(false)->after('risk_reasons_json');
+            }
+            if (! Schema::hasColumn('files', 'malware_scan_checked_at')) {
+                $table->timestamp('malware_scan_checked_at')->nullable()->after('malware_scan_passed');
+            }
+            if (! Schema::hasColumn('files', 'malware_scan_details')) {
+                $table->text('malware_scan_details')->nullable()->after('malware_scan_checked_at');
+            }
         });
 
         Schema::table('users', function (Blueprint $table): void {
@@ -79,7 +88,7 @@ return new class extends Migration
         });
 
         Schema::table('files', function (Blueprint $table): void {
-            foreach (['risk_reasons_json', 'risk_score', 'scan_checked_at', 'scan_result', 'scan_status'] as $column) {
+            foreach (['malware_scan_details', 'malware_scan_checked_at', 'malware_scan_passed', 'risk_reasons_json', 'risk_score', 'scan_checked_at', 'scan_result', 'scan_status'] as $column) {
                 if (Schema::hasColumn('files', $column)) {
                     $table->dropColumn($column);
                 }

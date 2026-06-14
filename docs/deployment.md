@@ -17,7 +17,7 @@
 - MySQL 5.7+、MariaDB 10.3+ 或 SQLite
 - Nginx 或 Apache，生产环境推荐 Nginx
 - Supervisor 或同类进程守护工具
-- Node.js 18+，仅在服务器上重新构建前端资源时需要
+- Node.js 18+，用于构建 Vite 前端资源
 
 ## `.env` 文件在哪里
 
@@ -110,7 +110,7 @@ php artisan view:cache
 
 ## 前端资源
 
-仓库已包含可直接部署的静态资源。需要重新构建前端资源时执行：
+仓库不提交 `public/build` 构建产物，首次部署和更新时需要构建前端资源：
 
 ```bash
 # 安装前端依赖

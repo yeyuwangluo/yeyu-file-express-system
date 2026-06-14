@@ -13,6 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
+        if (Schema::hasTable('ai_scan_logs')) {
+            return;
+        }
+
         Schema::create('ai_scan_logs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();

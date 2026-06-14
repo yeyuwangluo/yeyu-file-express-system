@@ -1,3 +1,16 @@
-// Vite 配置已不再需要。
-// CSS 和 JS 已预编译到 public/_next/static/ 目录，无需 Node.js 构建步骤。
-// 部署时只需 composer install + php artisan migrate。
+import tailwindcss from '@tailwindcss/vite';
+import laravel from 'laravel-vite-plugin';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+    plugins: [
+        tailwindcss(),
+        laravel({
+            input: ['resources/css/app.css', 'resources/js/app.js'],
+            refresh: true,
+        }),
+    ],
+    server: {
+        allowedHosts: ['.monkeycode-ai.online'],
+    },
+});
