@@ -13,6 +13,7 @@ use App\Models\LanSignal;
 use App\Models\SharedFile;
 use App\Models\Setting;
 use App\Models\User;
+use App\Jobs\ScanUploadedFile;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -51,6 +52,7 @@ class YeyuFileExpressApiTest extends TestCase
     public function test_upload_share_info_history_and_download_flow(): void
     {
         Storage::fake('local');
+        Queue::fake();
 
         $upload = $this->post('/api/v1/files', [
             'file' => UploadedFile::fake()->createWithContent('hello.txt', 'hello Yeyu File Express'),
@@ -66,14 +68,17 @@ class YeyuFileExpressApiTest extends TestCase
         $code = $upload->json('data.code');
         $file = SharedFile::query()->where('code', $code)->firstOrFail();
         Storage::disk('local')->assertExists($file->path);
-        $this->assertSame('skipped', $file->scan_status);
+        $this->assertSame('pending', $file->scan_status);
         $this->assertGreaterThanOrEqual(0, $file->risk_score);
+        Queue::assertPushed(ScanUploadedFile::class);
 
         $this->getJson("/api/v1/files/{$code}")
             ->assertOk()
             ->assertJsonPath('data.code', $code)
             ->assertJsonMissingPath('data.path')
             ->assertJsonMissingPath('data.extract_code_hash');
+
+        $file->forceFill(['scan_status' => 'skipped'])->save();
 
         $this->get("/api/v1/files/{$code}/download?extractCode=bad")
             ->assertForbidden();
@@ -103,32 +108,35 @@ class YeyuFileExpressApiTest extends TestCase
 
         $sessionId = $created->json('data.sessionId');
         $shortCode = $created->json('data.shortCode');
+        $senderToken = $created->json('data.senderToken');
 
-        $this->postJson('/api/v1/lan/sessions/join', ['shortCode' => $shortCode])
-            ->assertOk()
+        $joined = $this->postJson('/api/v1/lan/sessions/join', ['shortCode' => $shortCode]);
+        $joined->assertOk()
             ->assertJsonPath('data.receiverJoined', true);
+        $receiverToken = $joined->json('data.receiverToken');
 
-        $this->getJson("/api/v1/lan/sessions/{$sessionId}/text")
+        $this->getJson("/api/v1/lan/sessions/{$sessionId}/text?token={$receiverToken}")
             ->assertOk()
             ->assertJsonPath('data.title', '备忘');
 
-        $this->postJson("/api/v1/lan/sessions/{$sessionId}/offer", ['sdp' => 'demo-offer'])
+        $this->postJson("/api/v1/lan/sessions/{$sessionId}/offer", ['sdp' => 'demo-offer', 'token' => $senderToken])
             ->assertOk();
 
-        $this->getJson("/api/v1/lan/sessions/{$sessionId}/offer")
+        $this->getJson("/api/v1/lan/sessions/{$sessionId}/offer?token={$receiverToken}")
             ->assertOk()
             ->assertJsonPath('data.sdp', 'demo-offer');
 
-        $this->postJson("/api/v1/lan/sessions/{$sessionId}/ice", ['role' => 'sender', 'candidate' => 'candidate-1'])
+        $this->postJson("/api/v1/lan/sessions/{$sessionId}/ice", ['role' => 'sender', 'candidate' => 'candidate-1', 'token' => $senderToken])
             ->assertOk()
             ->assertJsonPath('data.sequence', 1);
 
-        $this->getJson("/api/v1/lan/sessions/{$sessionId}/ice?afterSequence=0")
+        $this->getJson("/api/v1/lan/sessions/{$sessionId}/ice?afterSequence=0&token={$receiverToken}")
             ->assertOk()
             ->assertJsonPath('data.0.candidate', 'candidate-1');
 
         $this->postJson("/api/v1/lan/sessions/{$sessionId}/ice", [
             'role' => 'receiver',
+            'token' => $receiverToken,
             'candidates' => [
                 ['candidate' => 'candidate-2'],
                 ['candidate' => 'candidate-3'],
@@ -137,7 +145,7 @@ class YeyuFileExpressApiTest extends TestCase
             ->assertJsonPath('data.0.sequence', 2)
             ->assertJsonPath('data.1.sequence', 3);
 
-        $this->getJson("/api/v1/lan/sessions/{$sessionId}/ice?afterSequence=1&role=receiver")
+        $this->getJson("/api/v1/lan/sessions/{$sessionId}/ice?afterSequence=1&role=receiver&token={$receiverToken}")
             ->assertOk()
             ->assertJsonPath('data.items.0.candidate', 'candidate-2')
             ->assertJsonPath('data.nextAfterSequence', 3);
@@ -256,6 +264,10 @@ class YeyuFileExpressApiTest extends TestCase
     {
         $basePath = storage_path('framework/testing-installer/'.uniqid('install_', true));
         \Illuminate\Support\Facades\File::ensureDirectoryExists($basePath);
+        $originalDatabaseConfig = config('database.connections.sqlite.database');
+        $originalDatabaseDefault = config('database.default');
+        $originalEnvDatabase = $_ENV['DB_DATABASE'] ?? null;
+        $originalServerDatabase = $_SERVER['DB_DATABASE'] ?? null;
 
         config([
             'yeyu_file_express.installer.installed' => false,
@@ -272,7 +284,7 @@ class YeyuFileExpressApiTest extends TestCase
             'admin_email' => 'owner@example.com',
             'admin_password' => 'owner-secret',
             'admin_password_confirmation' => 'owner-secret',
-        ])->assertRedirect('/');
+        ])->assertRedirect('/admin-lite');
 
         $this->assertFileExists($basePath.'/.env');
         $this->assertFileExists($basePath.'/installed.json');
@@ -280,14 +292,34 @@ class YeyuFileExpressApiTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => 'owner@example.com', 'is_admin' => true, 'role' => 'owner']);
         $this->assertDatabaseHas('settings', ['group' => 'upload', 'key' => 'max_file_size']);
 
-        \Illuminate\Support\Facades\File::deleteDirectory($basePath);
+        config([
+            'database.default' => $originalDatabaseDefault,
+            'database.connections.sqlite.database' => $originalDatabaseConfig,
+        ]);
+        if ($originalEnvDatabase === null) {
+            unset($_ENV['DB_DATABASE']);
+        } else {
+            $_ENV['DB_DATABASE'] = $originalEnvDatabase;
+        }
+        if ($originalServerDatabase === null) {
+            unset($_SERVER['DB_DATABASE']);
+        } else {
+            $_SERVER['DB_DATABASE'] = $originalServerDatabase;
+        }
+        putenv('DB_DATABASE='.((string) $originalDatabaseConfig));
+        \Illuminate\Support\Facades\DB::setDefaultConnection((string) $originalDatabaseDefault);
+        \Illuminate\Support\Facades\DB::purge('sqlite');
+        \Illuminate\Support\Facades\DB::disconnect('sqlite');
+        \Illuminate\Support\Facades\DB::reconnect('sqlite');
+
+        // Keep installer artifacts until the process ends so lingering SQLite handles stay valid on Windows and CI.
     }
 
     public function test_admin_can_manage_announcements_settings_blocks_and_audit_logs(): void
     {
         $headers = $this->adminHeaders();
 
-        $this->get('/admin-lite')->assertUnauthorized();
+        $this->get('/admin-lite')->assertRedirect('/admin-lite/login');
 
         $this->post('/admin-lite/settings', [
             'max_file_size' => 12_345,
@@ -366,7 +398,7 @@ class YeyuFileExpressApiTest extends TestCase
         ], $headers)->assertRedirect();
 
         $blockedIp = BlockedIp::query()->where('ip', '192.0.2.10')->firstOrFail();
-        $this->delete("/admin-lite/blocked-ips/{$blockedIp->id}", [], $headers)->assertRedirect();
+        $this->delete("/admin-lite/blocked-ips/{$blockedIp->id}", ['confirm_text' => 'CONFIRM'], $headers)->assertRedirect();
 
         $this->post('/admin-lite/users', [
             'name' => 'Viewer',
@@ -379,6 +411,7 @@ class YeyuFileExpressApiTest extends TestCase
         $viewer = User::query()->where('email', 'viewer@example.com')->firstOrFail();
         $this->put("/admin-lite/users/{$viewer->id}", [
             'name' => 'Viewer User',
+            'email' => 'viewer@example.com',
             'role' => 'admin',
             'status' => 'active',
             'permissions' => 'admins.manage',
@@ -416,7 +449,12 @@ class YeyuFileExpressApiTest extends TestCase
             ->assertOk()
             ->assertSee('report.pdf')
             ->assertSee('最近 7 天趋势')
-            ->assertSee('最近健康检查');
+            ->assertSee('健康检查');
+
+        Setting::query()->updateOrCreate(
+            ['group' => 'admin', 'key' => 'password_hash'],
+            ['value' => Hash::make('change-me-now'), 'type' => 'string'],
+        );
 
         $this->post('/admin-lite/password', [
             'current_password' => 'change-me-now',
@@ -429,7 +467,7 @@ class YeyuFileExpressApiTest extends TestCase
         $this->assertTrue(Hash::check('new-secret', $hash));
         $this->assertDatabaseHas('audit_logs', ['action' => 'admin.password.update']);
 
-        $this->get('/admin-lite/logout', $headers)->assertUnauthorized();
+        $this->post('/admin-lite/logout', [], $headers)->assertRedirect('/admin-lite/login');
     }
 
     public function test_admin_login_failures_are_throttled(): void
@@ -439,7 +477,7 @@ class YeyuFileExpressApiTest extends TestCase
                 'PHP_AUTH_USER' => 'admin@example.com',
                 'PHP_AUTH_PW' => 'wrong-password',
                 'REMOTE_ADDR' => '203.0.113.5',
-            ])->get('/admin-lite')->assertUnauthorized();
+            ])->get('/admin-lite')->assertRedirect('/admin-lite/login');
         }
 
         $this->withServerVariables([
@@ -452,12 +490,12 @@ class YeyuFileExpressApiTest extends TestCase
     public function test_admin_routes_use_unified_php80_compatible_dashboard(): void
     {
         $this->get('/admin')->assertRedirect('/admin-lite');
-        $this->get('/admin/login')->assertRedirect('/admin-lite');
+        $this->get('/admin/login')->assertRedirect('/admin-lite/login');
 
         $this->get('/admin-lite', $this->adminHeaders())
             ->assertOk()
-            ->assertSee('叶宇文件快递后台', false)
-            ->assertSee('兼容 PHP 8.0+', false);
+            ->assertSee('后台管理 - 叶宇文件快递', false)
+            ->assertSee('健康检查', false);
     }
 
     public function test_admin_basic_auth_records_last_login(): void
@@ -556,7 +594,10 @@ class YeyuFileExpressApiTest extends TestCase
 
     private function adminHeaders(): array
     {
+        putenv('ADMIN_EMAIL=admin@example.com');
+        putenv('ADMIN_PASSWORD=change-me-now');
         $_ENV['ADMIN_EMAIL'] = 'admin@example.com';
+        $_ENV['ADMIN_PASSWORD'] = 'change-me-now';
 
         return [
             'X-Test-Admin' => '1',
