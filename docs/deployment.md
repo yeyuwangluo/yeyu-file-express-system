@@ -12,12 +12,12 @@
 
 ## 基础环境
 
-- PHP 8.0.2 或更高版本，推荐 PHP 8.2
+- PHP 8.2 或更高版本
 - Composer 2
 - MySQL 5.7+、MariaDB 10.3+ 或 SQLite
 - Nginx 或 Apache，生产环境推荐 Nginx
 - Supervisor 或同类进程守护工具
-- Node.js 18+，用于构建 Vite 前端资源
+- Node.js 22.12+，用于构建 Vite 8 前端资源
 
 ## `.env` 文件在哪里
 

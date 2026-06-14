@@ -1,6 +1,6 @@
 # Yeyu File Express 搭建教程
 
-本文档用于在一台空服务器上部署 Yeyu File Express。项目基于 Laravel 9，前端资源使用 Vite 构建，核心能力包括文件上传、分享页、我的文件、批量分享、局域网投递、后台管理、AI 风险扫描、压缩包内部扫描、队列任务和运维自检。
+本文档用于在一台空服务器上部署 Yeyu File Express。项目基于 Laravel 12，前端资源使用 Vite 8 构建，核心能力包括文件上传、分享页、我的文件、批量分享、局域网投递、后台管理、AI 风险扫描、压缩包内部扫描、队列任务和运维自检。
 
 ## 适用场景
 
@@ -30,9 +30,9 @@
 ## 环境要求
 
 - Linux 服务器，推荐 Ubuntu 22.04、Debian 12、AlmaLinux 9 或同类发行版
-- PHP 8.0.2 或更高版本，推荐 PHP 8.2
+- PHP 8.2 或更高版本
 - Composer 2
-- Node.js 18 或更高版本
+- Node.js 22.12 或更高版本
 - MySQL 5.7+、MariaDB 10.3+ 或 SQLite
 - Nginx 或 Apache，生产环境推荐 Nginx
 - Supervisor 或同类进程守护工具，用于管理 Laravel 队列

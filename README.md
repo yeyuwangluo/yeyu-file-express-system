@@ -4,10 +4,10 @@
 
 ## 运行要求
 
-- PHP 8.0.2+
+- PHP 8.2+
 - Composer 2
 - MySQL 5.7+ 或 SQLite
-- Node.js 18+，用于构建 Vite 前端资源
+- Node.js 22.12+，用于构建 Vite 8 前端资源
 - Web 根目录指向 `public`
 
 > 前端资源通过 Vite 构建到 `public/build`。仓库不提交构建产物，首次部署和更新时需要执行 `npm ci && npm run build`。
@@ -35,7 +35,7 @@ php artisan key:generate
 /www/wwwroot/yeyu-file-express-system/.env
 ```
 
-当前兼容基线是 Laravel 9.52，`composer.json` 已把 `config.platform.php` 固定为 `8.0.2`，用于保证普通 PHP 8.0 虚拟主机也能安装同一套依赖。不要在生产机直接改平台版本后执行 `composer update`，否则可能解析出不再兼容 PHP 8.0 的依赖。
+当前兼容基线是 Laravel 12.62，`composer.json` 已把 `config.platform.php` 固定为 `8.2.0`。生产环境请使用 PHP 8.2 或更高版本，并在本地完成依赖升级验证后再部署锁文件。
 
 ## 本地启动
 
@@ -59,8 +59,10 @@ php artisan serve
 ## 验证
 
 ```bash
-composer why-not php 8.0.2
-vendor/bin/phpunit --colors=never
+composer validate --no-check-publish
+composer audit --format=plain
+npm audit
+php artisan test
 ```
 
 生产部署细节见 `docs/deployment.md`。
