@@ -5,13 +5,13 @@ namespace App\Console\Commands;
 use App\Models\LanSession;
 use App\Models\LanSignal;
 use App\Models\Setting;
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
 class CleanupLanSessions extends Command
 {
-    protected $signature = 'xiaoxin-file-express:cleanup-lan-sessions';
+    protected $signature = 'yeyu-file-express:cleanup-lan-sessions';
 
     protected $description = 'Mark expired LAN transfer sessions as expired.';
 
@@ -22,7 +22,7 @@ class CleanupLanSessions extends Command
             ->where('expires_at', '<=', now())
             ->update(['status' => 'expired', 'updated_at' => now()]);
 
-        $config = XiaoxinFileExpressSettings::lanTransfer();
+        $config = YeyuFileExpressSettings::lanTransfer();
         $completedBefore = now()->subMinutes((int) $config['completedRetentionMinutes']);
         $textBefore = now()->subMinutes((int) $config['textRetentionMinutes']);
 

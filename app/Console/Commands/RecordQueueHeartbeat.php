@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 
 class RecordQueueHeartbeat extends Command
 {
-    protected $signature = 'xiaoxin-file-express:queue-heartbeat';
+    protected $signature = 'yeyu-file-express:queue-heartbeat';
 
     protected $description = 'Record queue heartbeat and queue counters.';
 

@@ -10,7 +10,7 @@ class InstallationState
 {
     public function isInstalled(): bool
     {
-        $override = config('xiaoxin_file_express.installer.installed');
+        $override = config('yeyu_file_express.installer.installed');
 
         if ($override !== null) {
             return (bool) $override;
@@ -29,12 +29,12 @@ class InstallationState
 
     public function markerPath(): string
     {
-        return (string) (config('xiaoxin_file_express.installer.marker_path') ?: storage_path('app/xiaoxin-file-express/installed.json'));
+        return (string) (config('yeyu_file_express.installer.marker_path') ?: storage_path('app/yeyu-file-express/installed.json'));
     }
 
     public function envPath(): string
     {
-        return (string) (config('xiaoxin_file_express.installer.env_path') ?: base_path('.env'));
+        return (string) (config('yeyu_file_express.installer.env_path') ?: base_path('.env'));
     }
 
     public function markerExists(): bool

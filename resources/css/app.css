@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import './xiaoxin-file-express-theme.css';
+@import './yeyu-file-express-theme.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';

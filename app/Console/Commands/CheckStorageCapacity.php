@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Log;
 
 class CheckStorageCapacity extends Command
 {
-    protected $signature = 'xiaoxin-file-express:check-storage';
+    protected $signature = 'yeyu-file-express:check-storage';
 
-    protected $description = 'Record storage capacity status for the Xiaoxin File Express system.';
+    protected $description = 'Record storage capacity status for the Yeyu File Express system.';
 
     public function handle(): int
     {
         $used = (int) SharedFile::query()->sum('size');
-        $limit = (int) config('xiaoxin_file_express.storage_limit');
+        $limit = (int) config('yeyu_file_express.storage_limit');
         $percentage = $limit > 0 ? round($used / $limit * 100, 2) : 0;
         $status = $percentage >= 90 ? 'degraded' : 'healthy';
 

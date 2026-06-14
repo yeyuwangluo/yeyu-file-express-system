@@ -15,10 +15,10 @@ class Kernel extends ConsoleKernel
     {
         // 每小时清理一次过期文件
         $schedule->command('files:clean-expired')->hourly();
-        $schedule->command('xiaoxin-file-express:queue-heartbeat')->everyMinute();
-        $schedule->command('xiaoxin-file-express:ops-check --record')->everyFiveMinutes();
-        $schedule->command('xiaoxin-file-express:cleanup-lan-sessions')->everyThirtyMinutes();
-        $schedule->command('xiaoxin-file-express:prune-logs --days=30')->dailyAt('03:20');
+        $schedule->command('yeyu-file-express:queue-heartbeat')->everyMinute();
+        $schedule->command('yeyu-file-express:ops-check --record')->everyFiveMinutes();
+        $schedule->command('yeyu-file-express:cleanup-lan-sessions')->everyThirtyMinutes();
+        $schedule->command('yeyu-file-express:prune-logs --days=30')->dailyAt('03:20');
     }
 
     protected function commands()

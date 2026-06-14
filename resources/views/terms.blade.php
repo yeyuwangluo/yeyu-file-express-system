@@ -520,7 +520,7 @@
           <img src="/qrlogo.png" alt="叶宇文件快递">
           <span>
             <strong>叶宇文件快递</strong>
-            <small>Xiaoxin File Express</small>
+            <small>Yeyu File Express</small>
           </span>
         </a>
         <div class="terms-actions">
@@ -635,7 +635,7 @@
 
         try {
           if (window.opener && !window.opener.closed) {
-            window.opener.postMessage({ type: 'xiaoxin:terms-accepted', version: acceptedVersion }, window.location.origin);
+            window.opener.postMessage({ type: 'yeyu:terms-accepted', version: acceptedVersion }, window.location.origin);
             window.setTimeout(function() {
               window.close();
             }, 550);

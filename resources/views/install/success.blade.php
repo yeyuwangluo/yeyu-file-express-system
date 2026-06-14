@@ -115,7 +115,7 @@
           </div>
           <div class="inject-item">
             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>
-            <span class="text">XIAOXIN_FILE_EXPRESS_INSTALLED <span class="detail">&mdash; 标记为 <code>true</code></span></span>
+            <span class="text">YEYU_FILE_EXPRESS_INSTALLED <span class="detail">&mdash; 标记为 <code>true</code></span></span>
           </div>
           <div class="inject-item">
             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span>

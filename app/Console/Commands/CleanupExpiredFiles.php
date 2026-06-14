@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CleanupExpiredFiles extends Command
 {
-    protected $signature = 'xiaoxin-file-express:cleanup-expired-files';
+    protected $signature = 'yeyu-file-express:cleanup-expired-files';
 
     protected $description = 'Delete expired uploaded files from storage and mark them expired.';
 

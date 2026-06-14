@@ -13,7 +13,7 @@ use App\Models\AIScanLog;
 use App\Models\AuditLog;
 use App\Models\SharedFile;
 use App\Support\ApiEnvelope;
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use App\Models\Setting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
@@ -29,7 +29,7 @@ class SystemController extends Controller
 {
     public function config(): JsonResponse
     {
-        return ApiEnvelope::ok(XiaoxinFileExpressSettings::configPayload(), '获取配置成功');
+        return ApiEnvelope::ok(YeyuFileExpressSettings::configPayload(), '获取配置成功');
     }
 
     public function announcements(): JsonResponse
@@ -64,7 +64,7 @@ class SystemController extends Controller
 
     public function status(): JsonResponse
     {
-        $payload = Cache::store('file')->remember('xiaoxin-file-express:status-payload', now()->addSeconds(15), function (): array {
+        $payload = Cache::store('file')->remember('yeyu-file-express:status-payload', now()->addSeconds(15), function (): array {
             return $this->buildStatusPayload();
         });
 
@@ -110,7 +110,7 @@ class SystemController extends Controller
         $status = $error ? 'degraded' : 'healthy';
         $storageUsed = $databaseAvailable ? (int) SharedFile::query()->sum('size') : 0;
         $storageDirectoryUsed = $this->localStorageDirectorySize();
-        $storageLimit = (int) config('xiaoxin_file_express.storage_limit');
+        $storageLimit = (int) config('yeyu_file_express.storage_limit');
 
         $checkPayload = [
             'status' => $status,
@@ -372,12 +372,12 @@ class SystemController extends Controller
 
     public function appDownloadConfig(): JsonResponse
     {
-        return ApiEnvelope::ok(XiaoxinFileExpressSettings::appDownload(), '获取成功');
+        return ApiEnvelope::ok(YeyuFileExpressSettings::appDownload(), '获取成功');
     }
 
     public function appDownload(string $platform)
     {
-        $config = XiaoxinFileExpressSettings::appDownload();
+        $config = YeyuFileExpressSettings::appDownload();
         $key = $platform === 'ios' ? 'ios' : 'android';
         $enabledKey = $key.'Enabled';
         $urlKey = $key.'DownloadUrl';

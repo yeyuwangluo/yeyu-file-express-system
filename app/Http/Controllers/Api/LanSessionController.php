@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\LanSession;
 use App\Models\LanSignal;
 use App\Support\ApiEnvelope;
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,7 +16,7 @@ class LanSessionController extends Controller
 {
     public function index(): JsonResponse
     {
-        $config = XiaoxinFileExpressSettings::lanTransfer();
+        $config = YeyuFileExpressSettings::lanTransfer();
         if (! $config["enabled"]) {
             return ApiEnvelope::error("局域网互传暂未开启", 403, 403);
         }
@@ -41,7 +41,7 @@ class LanSessionController extends Controller
     
     public function store(Request $request): JsonResponse
     {
-        $config = XiaoxinFileExpressSettings::lanTransfer();
+        $config = YeyuFileExpressSettings::lanTransfer();
         if (! $config['enabled']) {
             return ApiEnvelope::error('局域网互传暂未开启', 403, 403);
         }

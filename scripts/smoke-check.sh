@@ -9,7 +9,7 @@ check_status() {
   local expected="$2"
   local url="$3"
   local code
-  code="$(curl -s -o /tmp/xiaoxin-smoke.out -w '%{http_code}' "$url")"
+  code="$(curl -s -o /tmp/yeyu-smoke.out -w '%{http_code}' "$url")"
   if [ "$code" != "$expected" ]; then
     printf '%s failed: expected %s got %s\n' "$name" "$expected" "$code" >&2
     return 1
@@ -25,9 +25,9 @@ check_status "risk-details" "200" "$BASE_URL/files/$RISK_CODE/threat-details"
 check_status "risk-direct-download" "403" "$BASE_URL/api/v1/files/$RISK_CODE/download"
 
 if [ -f artisan ]; then
-  php artisan xiaoxin-file-express:ops-check --json --record > /tmp/xiaoxin-ops-check.json
+  php artisan yeyu-file-express:ops-check --json --record > /tmp/yeyu-ops-check.json
   php -r '
-  $data = json_decode(file_get_contents("/tmp/xiaoxin-ops-check.json"), true);
+  $data = json_decode(file_get_contents("/tmp/yeyu-ops-check.json"), true);
   if (! is_array($data) || ! array_key_exists("queue", $data) || ! array_key_exists("risk_review", $data) || ! array_key_exists("status", $data)) {
       fwrite(STDERR, "ops-check output invalid".PHP_EOL);
       exit(1);
@@ -36,9 +36,9 @@ if [ -f artisan ]; then
   '
 fi
 
-curl -s "$BASE_URL/api/v1/status" > /tmp/xiaoxin-status.json
+curl -s "$BASE_URL/api/v1/status" > /tmp/yeyu-status.json
 php -r '
-$data = json_decode(file_get_contents("/tmp/xiaoxin-status.json"), true);
+$data = json_decode(file_get_contents("/tmp/yeyu-status.json"), true);
 $queue = $data["data"]["operations"]["queue"] ?? [];
 if (! array_key_exists("workerHeartbeatFresh", $queue) || ! array_key_exists("actionableFailedJobs", $queue)) {
     fwrite(STDERR, "status queue fields missing".PHP_EOL);
@@ -47,9 +47,9 @@ if (! array_key_exists("workerHeartbeatFresh", $queue) || ! array_key_exists("ac
 echo "status-queue-fields ok".PHP_EOL;
 '
 
-curl -s "$BASE_URL/api/v1/config" > /tmp/xiaoxin-config.json
+curl -s "$BASE_URL/api/v1/config" > /tmp/yeyu-config.json
 php -r '
-$data = json_decode(file_get_contents("/tmp/xiaoxin-config.json"), true);
+$data = json_decode(file_get_contents("/tmp/yeyu-config.json"), true);
 $hits = [];
 $sensitive = ["secret", "token", "cookie", "password", "accesskey"];
 $walk = function ($value, $path = "") use (&$walk, &$hits, $sensitive) {

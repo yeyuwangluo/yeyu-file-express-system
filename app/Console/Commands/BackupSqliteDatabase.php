@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class BackupSqliteDatabase extends Command
 {
-    protected $signature = 'xiaoxin-file-express:backup-database';
+    protected $signature = 'yeyu-file-express:backup-database';
 
     protected $description = 'Backup the SQLite database when SQLite is used locally.';
 

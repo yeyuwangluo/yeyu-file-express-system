@@ -17,7 +17,7 @@ use App\Models\SharedFile;
 use App\Models\Setting;
 use App\Models\User;
 use App\Support\AuditLogger;
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
@@ -171,8 +171,8 @@ class AdminLiteController extends Controller
             'trends' => $this->sevenDayTrends(),
             'files' => $files,
             'filters' => $filters,
-            'settings' => XiaoxinFileExpressSettings::configPayload() + ['appDownload' => XiaoxinFileExpressSettings::appDownload()],
-            'netdisk123' => XiaoxinFileExpressSettings::netdisk123(),
+            'settings' => YeyuFileExpressSettings::configPayload() + ['appDownload' => YeyuFileExpressSettings::appDownload()],
+            'netdisk123' => YeyuFileExpressSettings::netdisk123(),
             'ai_scan_enabled' => Setting::valueFor('ai_scan', 'ai_scan_enabled', false),
             'ai_scan_api_url' => Setting::valueFor('ai_scan', 'ai_scan_api_url', ''),
             'ai_scan_api_key' => '',
@@ -1267,7 +1267,7 @@ class AdminLiteController extends Controller
     {
         $this->ensureCan($request, 'maintenance.run');
 
-        Artisan::call('xiaoxin-file-express:cleanup-lan-sessions');
+        Artisan::call('yeyu-file-express:cleanup-lan-sessions');
         AuditLogger::write($request, 'maintenance.cleanup_lan', 'maintenance', null, []);
 
         return back()->with('status', trim(Artisan::output()) ?: '局域网互传会话清理完成');
@@ -1278,7 +1278,7 @@ class AdminLiteController extends Controller
         $this->ensureCan($request, 'maintenance.run');
 
         $days = max(7, min(365, (int) $request->input('days', 30)));
-        Artisan::call('xiaoxin-file-express:prune-logs', ['--days' => $days]);
+        Artisan::call('yeyu-file-express:prune-logs', ['--days' => $days]);
         AuditLogger::write($request, 'maintenance.prune_logs', 'maintenance', null, ['days' => $days]);
 
         return back()->with('status', trim(Artisan::output()) ?: '运行日志清理完成');
@@ -1288,7 +1288,7 @@ class AdminLiteController extends Controller
     {
         $this->ensureCan($request, 'maintenance.run');
 
-        Artisan::call('xiaoxin-file-express:ops-check', ['--record' => true]);
+        Artisan::call('yeyu-file-express:ops-check', ['--record' => true]);
         AuditLogger::write($request, 'maintenance.ops_check', 'maintenance', null, []);
 
         return redirect()->route('admin-lite.dashboard', ['tab' => 'security'])->with('status', trim(Artisan::output()) ?: '运维自检已执行');

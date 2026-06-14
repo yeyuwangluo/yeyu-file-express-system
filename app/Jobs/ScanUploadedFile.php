@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use App\Models\BlockedIp;
 use App\Models\SharedFile;
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use App\Services\Netdisk123Service;
 use App\Services\MalwareScanner;
 use Illuminate\Bus\Queueable;
@@ -28,7 +28,7 @@ class ScanUploadedFile implements ShouldQueue
             return;
         }
 
-        $config = XiaoxinFileExpressSettings::virusScan();
+        $config = YeyuFileExpressSettings::virusScan();
         if (! (bool) ($config['enabled'] ?? false)) {
             $this->mark($file, 'skipped', 'scan-disabled');
             // 即使病毒扫描被禁用，仍然执行恶意代码扫描

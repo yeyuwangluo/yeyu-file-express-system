@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Storage;
 
 class BackupConfiguration extends Command
 {
-    protected $signature = 'xiaoxin-file-express:backup-config';
+    protected $signature = 'yeyu-file-express:backup-config';
 
-    protected $description = 'Backup Xiaoxin File Express settings to local storage.';
+    protected $description = 'Backup Yeyu File Express settings to local storage.';
 
     public function handle(): int
     {

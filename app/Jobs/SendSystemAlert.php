@@ -28,7 +28,7 @@ class SendSystemAlert implements ShouldQueue
 
     public function handle(): void
     {
-        Log::warning('Xiaoxin File Express system alert', [
+        Log::warning('Yeyu File Express system alert', [
             'level' => $this->level,
             'message' => $this->message,
             'context' => $this->context,

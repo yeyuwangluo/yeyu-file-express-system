@@ -1,6 +1,6 @@
 <?php
 
-$installerInstalled = env('XIAOXIN_FILE_EXPRESS_INSTALLED');
+$installerInstalled = env('YEYU_FILE_EXPRESS_INSTALLED');
 if ($installerInstalled === '') {
     $installerInstalled = null;
 }
@@ -10,8 +10,8 @@ return [
         'installed' => $installerInstalled === null
             ? null
             : filter_var($installerInstalled, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE),
-        'env_path' => env('XIAOXIN_FILE_EXPRESS_ENV_PATH'),
-        'marker_path' => env('XIAOXIN_FILE_EXPRESS_MARKER_PATH'),
+        'env_path' => env('YEYU_FILE_EXPRESS_ENV_PATH'),
+        'marker_path' => env('YEYU_FILE_EXPRESS_MARKER_PATH'),
     ],
 
     'upload' => [

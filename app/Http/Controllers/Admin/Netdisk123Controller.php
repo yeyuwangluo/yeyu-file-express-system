@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Services\Netdisk123Service;
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +14,7 @@ class Netdisk123Controller extends Controller
     public function index()
     {
         return view('admin.netdisk123', [
-            'netdisk123' => XiaoxinFileExpressSettings::netdisk123(),
+            'netdisk123' => YeyuFileExpressSettings::netdisk123(),
         ]);
     }
 

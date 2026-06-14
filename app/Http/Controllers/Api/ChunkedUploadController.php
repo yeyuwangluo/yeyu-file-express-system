@@ -9,7 +9,7 @@ use App\Models\ChunkedUpload;
 use App\Models\FileUpload;
 use App\Models\SharedFile;
 use App\Support\ApiEnvelope;
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use App\Support\RiskEvaluator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class ChunkedUploadController extends Controller
 
     public function init(Request $request): JsonResponse
     {
-        if (! (bool) config('xiaoxin_file_express.chunked_upload.enabled', true)) {
+        if (! (bool) config('yeyu_file_express.chunked_upload.enabled', true)) {
             return ApiEnvelope::error('分片上传暂未开启', 403, 403);
         }
 
@@ -51,8 +51,8 @@ class ChunkedUploadController extends Controller
             return ApiEnvelope::error('参数不完整或格式无效', 422, 422, $exception->errors());
         }
 
-        $uploadConfig = XiaoxinFileExpressSettings::upload();
-        $chunkConfig = XiaoxinFileExpressSettings::chunkedUpload();
+        $uploadConfig = YeyuFileExpressSettings::upload();
+        $chunkConfig = YeyuFileExpressSettings::chunkedUpload();
         $maxSize = (int) $uploadConfig['maxFileSize'];
         if ((int) $data['totalSize'] > $maxSize) {
             return ApiEnvelope::error('文件超过最大上传限制', 413, 413);
@@ -133,7 +133,7 @@ class ChunkedUploadController extends Controller
             return ApiEnvelope::error('分片序号无效', 422, 422);
         }
 
-        if ($uploaded->getSize() > max(1, (int) XiaoxinFileExpressSettings::chunkedUpload()['maxChunkSize'])) {
+        if ($uploaded->getSize() > max(1, (int) YeyuFileExpressSettings::chunkedUpload()['maxChunkSize'])) {
             return ApiEnvelope::error('分片超过最大限制', 413, 413);
         }
 

@@ -4,7 +4,7 @@ namespace App\Support;
 
 use App\Models\Setting;
 
-class XiaoxinFileExpressSettings
+class YeyuFileExpressSettings
 {
     public static function configPayload(): array
     {
@@ -24,10 +24,10 @@ class XiaoxinFileExpressSettings
     public static function upload(): array
     {
         return [
-            'maxFileSize' => Setting::valueFor('upload', 'max_file_size', config('xiaoxin_file_express.upload.max_file_size')),
-            'maxExpireDays' => Setting::valueFor('upload', 'max_expire_days', config('xiaoxin_file_express.upload.max_expire_days')),
-            'defaultExpireDays' => Setting::valueFor('upload', 'default_expire_days', config('xiaoxin_file_express.upload.default_expire_days')),
-            'allowedFileTypes' => Setting::valueFor('upload', 'allowed_file_types', config('xiaoxin_file_express.upload.allowed_file_types')),
+            'maxFileSize' => Setting::valueFor('upload', 'max_file_size', config('yeyu_file_express.upload.max_file_size')),
+            'maxExpireDays' => Setting::valueFor('upload', 'max_expire_days', config('yeyu_file_express.upload.max_expire_days')),
+            'defaultExpireDays' => Setting::valueFor('upload', 'default_expire_days', config('yeyu_file_express.upload.default_expire_days')),
+            'allowedFileTypes' => Setting::valueFor('upload', 'allowed_file_types', config('yeyu_file_express.upload.allowed_file_types')),
         ];
     }
 
@@ -85,43 +85,43 @@ class XiaoxinFileExpressSettings
     public static function geetest(): array
     {
         return [
-            'enabled' => Setting::valueFor('geetest', 'enabled', config('xiaoxin_file_express.geetest.enabled')),
-            'captchaId' => Setting::valueFor('geetest', 'captcha_id', config('xiaoxin_file_express.geetest.captcha_id')),
+            'enabled' => Setting::valueFor('geetest', 'enabled', config('yeyu_file_express.geetest.enabled')),
+            'captchaId' => Setting::valueFor('geetest', 'captcha_id', config('yeyu_file_express.geetest.captcha_id')),
         ];
     }
 
     public static function chunkedUpload(): array
     {
         return [
-            'enabled' => Setting::valueFor('chunked_upload', 'enabled', config('xiaoxin_file_express.chunked_upload.enabled')),
-            'maxChunkSize' => Setting::valueFor('chunked_upload', 'max_chunk_size', config('xiaoxin_file_express.chunked_upload.max_chunk_size')),
-            'maxChunks' => Setting::valueFor('chunked_upload', 'max_chunks', config('xiaoxin_file_express.chunked_upload.max_chunks')),
-            'sessionTtlMinutes' => Setting::valueFor('chunked_upload', 'session_ttl_minutes', config('xiaoxin_file_express.chunked_upload.session_ttl_minutes')),
+            'enabled' => Setting::valueFor('chunked_upload', 'enabled', config('yeyu_file_express.chunked_upload.enabled')),
+            'maxChunkSize' => Setting::valueFor('chunked_upload', 'max_chunk_size', config('yeyu_file_express.chunked_upload.max_chunk_size')),
+            'maxChunks' => Setting::valueFor('chunked_upload', 'max_chunks', config('yeyu_file_express.chunked_upload.max_chunks')),
+            'sessionTtlMinutes' => Setting::valueFor('chunked_upload', 'session_ttl_minutes', config('yeyu_file_express.chunked_upload.session_ttl_minutes')),
         ];
     }
 
     public static function risk(): array
     {
         return [
-            'blockScore' => Setting::valueFor('risk', 'block_score', config('xiaoxin_file_express.risk.block_score')),
+            'blockScore' => Setting::valueFor('risk', 'block_score', config('yeyu_file_express.risk.block_score')),
         ];
     }
 
     public static function virusScan(): array
     {
         return [
-            'enabled' => Setting::valueFor('virus_scan', 'enabled', config('xiaoxin_file_express.security.virus_scan.enabled')),
-            'clamavPath' => Setting::valueFor('virus_scan', 'clamav_path', config('xiaoxin_file_express.security.virus_scan.clamav_path')),
-            'timeoutSeconds' => Setting::valueFor('virus_scan', 'timeout_seconds', config('xiaoxin_file_express.security.virus_scan.timeout_seconds')),
+            'enabled' => Setting::valueFor('virus_scan', 'enabled', config('yeyu_file_express.security.virus_scan.enabled')),
+            'clamavPath' => Setting::valueFor('virus_scan', 'clamav_path', config('yeyu_file_express.security.virus_scan.clamav_path')),
+            'timeoutSeconds' => Setting::valueFor('virus_scan', 'timeout_seconds', config('yeyu_file_express.security.virus_scan.timeout_seconds')),
         ];
     }
 
     public static function footer(): array
     {
-        $icp = Setting::valueFor('footer', 'icp_beian', config('xiaoxin_file_express.footer.icp_beian'));
-        $gongan = Setting::valueFor('footer', 'gongan_beian', config('xiaoxin_file_express.footer.gongan_beian'));
-        $gonganCode = Setting::valueFor('footer', 'gongan_code', config('xiaoxin_file_express.footer.gongan_code'));
-        $links = Setting::valueFor('footer', 'links', config('xiaoxin_file_express.footer.links', []));
+        $icp = Setting::valueFor('footer', 'icp_beian', config('yeyu_file_express.footer.icp_beian'));
+        $gongan = Setting::valueFor('footer', 'gongan_beian', config('yeyu_file_express.footer.gongan_beian'));
+        $gonganCode = Setting::valueFor('footer', 'gongan_code', config('yeyu_file_express.footer.gongan_code'));
+        $links = Setting::valueFor('footer', 'links', config('yeyu_file_express.footer.links', []));
 
         return [
             'items' => collect([
@@ -142,19 +142,19 @@ class XiaoxinFileExpressSettings
     public static function lanTransfer(): array
     {
         return [
-            'enabled' => Setting::valueFor('lan_transfer', 'enabled', config('xiaoxin_file_express.lan_transfer.enabled')),
-            'maxFileSize' => Setting::valueFor('lan_transfer', 'max_file_size', config('xiaoxin_file_express.lan_transfer.max_file_size')),
-            'maxFileCount' => Setting::valueFor('lan_transfer', 'max_file_count', config('xiaoxin_file_express.lan_transfer.max_file_count')),
-            'maxTotalSizeEnabled' => Setting::valueFor('lan_transfer', 'max_total_size_enabled', config('xiaoxin_file_express.lan_transfer.max_total_size_enabled')),
-            'maxTotalSize' => Setting::valueFor('lan_transfer', 'max_total_size', config('xiaoxin_file_express.lan_transfer.max_total_size')),
-            'allowedFileTypes' => Setting::valueFor('lan_transfer', 'allowed_file_types', config('xiaoxin_file_express.lan_transfer.allowed_file_types')),
-            'expireMinutes' => Setting::valueFor('lan_transfer', 'expire_minutes', config('xiaoxin_file_express.lan_transfer.expire_minutes')),
-            'completedRetentionMinutes' => Setting::valueFor('lan_transfer', 'completed_retention_minutes', config('xiaoxin_file_express.lan_transfer.completed_retention_minutes')),
-            'textEnabled' => Setting::valueFor('lan_transfer', 'text_enabled', config('xiaoxin_file_express.lan_transfer.text_enabled')),
-            'textMaxLength' => Setting::valueFor('lan_transfer', 'text_max_length', config('xiaoxin_file_express.lan_transfer.text_max_length')),
-            'textMaxLines' => Setting::valueFor('lan_transfer', 'text_max_lines', config('xiaoxin_file_express.lan_transfer.text_max_lines')),
-            'textAllowTitle' => Setting::valueFor('lan_transfer', 'text_allow_title', config('xiaoxin_file_express.lan_transfer.text_allow_title')),
-            'textRetentionMinutes' => Setting::valueFor('lan_transfer', 'text_retention_minutes', config('xiaoxin_file_express.lan_transfer.text_retention_minutes')),
+            'enabled' => Setting::valueFor('lan_transfer', 'enabled', config('yeyu_file_express.lan_transfer.enabled')),
+            'maxFileSize' => Setting::valueFor('lan_transfer', 'max_file_size', config('yeyu_file_express.lan_transfer.max_file_size')),
+            'maxFileCount' => Setting::valueFor('lan_transfer', 'max_file_count', config('yeyu_file_express.lan_transfer.max_file_count')),
+            'maxTotalSizeEnabled' => Setting::valueFor('lan_transfer', 'max_total_size_enabled', config('yeyu_file_express.lan_transfer.max_total_size_enabled')),
+            'maxTotalSize' => Setting::valueFor('lan_transfer', 'max_total_size', config('yeyu_file_express.lan_transfer.max_total_size')),
+            'allowedFileTypes' => Setting::valueFor('lan_transfer', 'allowed_file_types', config('yeyu_file_express.lan_transfer.allowed_file_types')),
+            'expireMinutes' => Setting::valueFor('lan_transfer', 'expire_minutes', config('yeyu_file_express.lan_transfer.expire_minutes')),
+            'completedRetentionMinutes' => Setting::valueFor('lan_transfer', 'completed_retention_minutes', config('yeyu_file_express.lan_transfer.completed_retention_minutes')),
+            'textEnabled' => Setting::valueFor('lan_transfer', 'text_enabled', config('yeyu_file_express.lan_transfer.text_enabled')),
+            'textMaxLength' => Setting::valueFor('lan_transfer', 'text_max_length', config('yeyu_file_express.lan_transfer.text_max_length')),
+            'textMaxLines' => Setting::valueFor('lan_transfer', 'text_max_lines', config('yeyu_file_express.lan_transfer.text_max_lines')),
+            'textAllowTitle' => Setting::valueFor('lan_transfer', 'text_allow_title', config('yeyu_file_express.lan_transfer.text_allow_title')),
+            'textRetentionMinutes' => Setting::valueFor('lan_transfer', 'text_retention_minutes', config('yeyu_file_express.lan_transfer.text_retention_minutes')),
         ];
     }
 
@@ -186,18 +186,18 @@ class XiaoxinFileExpressSettings
     public static function appDownload(): array
     {
         return [
-            'enabled' => Setting::valueFor('app_download', 'enabled', config('xiaoxin_file_express.app_download.enabled')),
-            'title' => Setting::valueFor('app_download', 'title', config('xiaoxin_file_express.app_download.title')),
-            'subtitle' => Setting::valueFor('app_download', 'subtitle', config('xiaoxin_file_express.app_download.subtitle')),
-            'description' => Setting::valueFor('app_download', 'description', config('xiaoxin_file_express.app_download.description')),
-            'features' => Setting::valueFor('app_download', 'features', config('xiaoxin_file_express.app_download.features')),
-            'androidEnabled' => Setting::valueFor('app_download', 'android_enabled', config('xiaoxin_file_express.app_download.android_enabled')),
-            'androidDownloadUrl' => Setting::valueFor('app_download', 'android_download_url', config('xiaoxin_file_express.app_download.android_download_url')),
-            'androidVersion' => Setting::valueFor('app_download', 'android_version', config('xiaoxin_file_express.app_download.android_version')),
-            'iosEnabled' => Setting::valueFor('app_download', 'ios_enabled', config('xiaoxin_file_express.app_download.ios_enabled')),
-            'iosDownloadUrl' => Setting::valueFor('app_download', 'ios_download_url', config('xiaoxin_file_express.app_download.ios_download_url')),
-            'iosVersion' => Setting::valueFor('app_download', 'ios_version', config('xiaoxin_file_express.app_download.ios_version')),
-            'qrcodeEnabled' => Setting::valueFor('app_download', 'qrcode_enabled', config('xiaoxin_file_express.app_download.qrcode_enabled')),
+            'enabled' => Setting::valueFor('app_download', 'enabled', config('yeyu_file_express.app_download.enabled')),
+            'title' => Setting::valueFor('app_download', 'title', config('yeyu_file_express.app_download.title')),
+            'subtitle' => Setting::valueFor('app_download', 'subtitle', config('yeyu_file_express.app_download.subtitle')),
+            'description' => Setting::valueFor('app_download', 'description', config('yeyu_file_express.app_download.description')),
+            'features' => Setting::valueFor('app_download', 'features', config('yeyu_file_express.app_download.features')),
+            'androidEnabled' => Setting::valueFor('app_download', 'android_enabled', config('yeyu_file_express.app_download.android_enabled')),
+            'androidDownloadUrl' => Setting::valueFor('app_download', 'android_download_url', config('yeyu_file_express.app_download.android_download_url')),
+            'androidVersion' => Setting::valueFor('app_download', 'android_version', config('yeyu_file_express.app_download.android_version')),
+            'iosEnabled' => Setting::valueFor('app_download', 'ios_enabled', config('yeyu_file_express.app_download.ios_enabled')),
+            'iosDownloadUrl' => Setting::valueFor('app_download', 'ios_download_url', config('yeyu_file_express.app_download.ios_download_url')),
+            'iosVersion' => Setting::valueFor('app_download', 'ios_version', config('yeyu_file_express.app_download.ios_version')),
+            'qrcodeEnabled' => Setting::valueFor('app_download', 'qrcode_enabled', config('yeyu_file_express.app_download.qrcode_enabled')),
         ];
     }
 }

@@ -91,7 +91,7 @@ class InstallController extends Controller
             'sqlite_path' => 'database/database.sqlite',
             'db_host' => config('database.connections.mysql.host', '127.0.0.1'),
             'db_port' => config('database.connections.mysql.port', '3306'),
-            'db_database' => config('database.connections.mysql.database', 'xiaoxin_file_express'),
+            'db_database' => config('database.connections.mysql.database', 'yeyu_file_express'),
             'db_username' => config('database.connections.mysql.username', 'root'),
             'db_password' => '',
             'admin_name' => 'Administrator',

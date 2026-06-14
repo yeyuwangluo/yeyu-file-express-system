@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
     private function configureStorageDisks(): void
     {
         try {
-            $storage = XiaoxinFileExpressSettings::storage();
+            $storage = YeyuFileExpressSettings::storage();
         } catch (\Throwable) {
             return;
         }

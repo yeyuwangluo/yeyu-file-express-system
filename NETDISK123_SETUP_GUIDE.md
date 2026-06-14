@@ -21,12 +21,12 @@
 在  文件中已添加以下配置：
 
 # 网盘系统环境变量示例（替换为你自己的值）
-APP_NAME=小鑫文件快递
+APP_NAME=叶宇文件快递
 APP_URL=https://pan.yeyupan.cc
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=xiaoxin_file_express
+DB_DATABASE=yeyu_file_express
 DB_USERNAME=root
 DB_PASSWORD=
 ADMIN_EMAIL=admin@example.com
@@ -119,7 +119,7 @@ $result = $service->testConnection();
 运行测试脚本检查配置：
 
 ```bash
-php /www/wwwroot/xiaoxin-file-express-system/public/netdisk123-test.php
+php /www/wwwroot/yeyu-file-express-system/public/netdisk123-test.php
 ```
 
 ## 访问地址

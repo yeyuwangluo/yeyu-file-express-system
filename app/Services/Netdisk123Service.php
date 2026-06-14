@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -14,7 +14,7 @@ class Netdisk123Service
 
     public function __construct()
     {
-        $config = XiaoxinFileExpressSettings::netdisk123();
+        $config = YeyuFileExpressSettings::netdisk123();
         $this->cookie = $config['cookie'] ?? '';
         $this->token = $config['token'] ?? '';
     }

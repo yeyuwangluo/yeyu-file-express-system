@@ -143,7 +143,7 @@ OSS_ENDPOINT=cos.ap-guangzhou.myqcloud.com
 
 ## 技术支持
 如遇到问题，请查看：
-- 服务器日志: /www/wwwroot/xiaoxin-file-express-system/storage/logs/
+- 服务器日志: /www/wwwroot/yeyu-file-express-system/storage/logs/
 - Nginx日志: /www/wwwlogs/pan.yeyupan.cc.log
 - OSS测试页面: /oss-test.php
 

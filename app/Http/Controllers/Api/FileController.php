@@ -12,7 +12,7 @@ use App\Models\RiskDownloadAckLog;
 use App\Models\SharedFile;
 use App\Models\Setting;
 use App\Support\ApiEnvelope;
-use App\Support\XiaoxinFileExpressSettings;
+use App\Support\YeyuFileExpressSettings;
 use App\Support\RiskEvaluator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -43,7 +43,7 @@ class FileController extends Controller
             return $this->recordFailedUpload($request, '请选择要上传的文件', 422);
         }
 
-        $uploadConfig = XiaoxinFileExpressSettings::upload();
+        $uploadConfig = YeyuFileExpressSettings::upload();
         $maxSize = (int) $uploadConfig['maxFileSize'];
         if ($uploaded->getSize() > $maxSize) {
             return $this->recordFailedUpload($request, '文件超过最大上传限制', 413, $uploaded);
@@ -56,7 +56,7 @@ class FileController extends Controller
             return $this->recordFailedUpload($request, '文件类型不允许上传', 422, $uploaded);
         }
 
-        $geetest = XiaoxinFileExpressSettings::geetest();
+        $geetest = YeyuFileExpressSettings::geetest();
         if ($geetest['enabled'] && ! $this->captchaLooksPresent($request)) {
             return $this->recordFailedUpload($request, '请先完成人机验证', 422, $uploaded);
         }

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class XiaoxinFileExpressApiTest extends TestCase
+class YeyuFileExpressApiTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -53,7 +53,7 @@ class XiaoxinFileExpressApiTest extends TestCase
         Storage::fake('local');
 
         $upload = $this->post('/api/v1/files', [
-            'file' => UploadedFile::fake()->createWithContent('hello.txt', 'hello Xiaoxin File Express'),
+            'file' => UploadedFile::fake()->createWithContent('hello.txt', 'hello Yeyu File Express'),
             'expireDays' => 1,
             'extractCode' => '1234',
         ]);
@@ -215,10 +215,10 @@ class XiaoxinFileExpressApiTest extends TestCase
     {
         Setting::query()->updateOrCreate(['group' => 'app_download', 'key' => 'enabled'], ['value' => '1', 'type' => 'bool']);
         Setting::query()->updateOrCreate(['group' => 'app_download', 'key' => 'android_enabled'], ['value' => '1', 'type' => 'bool']);
-        Setting::query()->updateOrCreate(['group' => 'app_download', 'key' => 'android_download_url'], ['value' => 'https://example.com/xiaoxin-file-express.apk', 'type' => 'string']);
+        Setting::query()->updateOrCreate(['group' => 'app_download', 'key' => 'android_download_url'], ['value' => 'https://example.com/yeyu-file-express.apk', 'type' => 'string']);
 
         $this->get('/api/v1/app/download/android')
-            ->assertRedirect('https://example.com/xiaoxin-file-express.apk');
+            ->assertRedirect('https://example.com/yeyu-file-express.apk');
 
         $this->get('/api/v1/app/download/ios')
             ->assertNotFound();
@@ -236,7 +236,7 @@ class XiaoxinFileExpressApiTest extends TestCase
 
     public function test_uninstalled_system_redirects_to_unified_installer(): void
     {
-        config(['xiaoxin_file_express.installer.installed' => false]);
+        config(['yeyu_file_express.installer.installed' => false]);
 
         $this->get('/')->assertRedirect('/install');
 
@@ -258,9 +258,9 @@ class XiaoxinFileExpressApiTest extends TestCase
         \Illuminate\Support\Facades\File::ensureDirectoryExists($basePath);
 
         config([
-            'xiaoxin_file_express.installer.installed' => false,
-            'xiaoxin_file_express.installer.env_path' => $basePath.'/.env',
-            'xiaoxin_file_express.installer.marker_path' => $basePath.'/installed.json',
+            'yeyu_file_express.installer.installed' => false,
+            'yeyu_file_express.installer.env_path' => $basePath.'/.env',
+            'yeyu_file_express.installer.marker_path' => $basePath.'/installed.json',
         ]);
 
         $this->post('/install', [
@@ -276,7 +276,7 @@ class XiaoxinFileExpressApiTest extends TestCase
 
         $this->assertFileExists($basePath.'/.env');
         $this->assertFileExists($basePath.'/installed.json');
-        $this->assertStringContainsString('XIAOXIN_FILE_EXPRESS_INSTALLED=true', (string) file_get_contents($basePath.'/.env'));
+        $this->assertStringContainsString('YEYU_FILE_EXPRESS_INSTALLED=true', (string) file_get_contents($basePath.'/.env'));
         $this->assertDatabaseHas('users', ['email' => 'owner@example.com', 'is_admin' => true, 'role' => 'owner']);
         $this->assertDatabaseHas('settings', ['group' => 'upload', 'key' => 'max_file_size']);
 
@@ -523,7 +523,7 @@ class XiaoxinFileExpressApiTest extends TestCase
             'uploaded_at' => now()->subDay(),
         ]);
 
-        $this->artisan('xiaoxin-file-express:cleanup-expired-files')->assertSuccessful();
+        $this->artisan('yeyu-file-express:cleanup-expired-files')->assertSuccessful();
         $this->assertDatabaseHas('files', ['id' => $file->id, 'status' => 'expired']);
 
         FileUpload::query()->create([
@@ -540,14 +540,14 @@ class XiaoxinFileExpressApiTest extends TestCase
         ]);
 
         Bus::fake();
-        config(['xiaoxin_file_express.storage_limit' => 1]);
+        config(['yeyu_file_express.storage_limit' => 1]);
 
-        $this->artisan('xiaoxin-file-express:check-storage')->assertSuccessful();
+        $this->artisan('yeyu-file-express:check-storage')->assertSuccessful();
         Bus::assertDispatched(SendSystemAlert::class);
-        $this->artisan('xiaoxin-file-express:daily-stats')->assertSuccessful();
-        $this->artisan('xiaoxin-file-express:prune-logs', ['--days' => 1])->assertSuccessful();
-        $this->artisan('xiaoxin-file-express:backup-config')->assertSuccessful();
-        $this->artisan('xiaoxin-file-express:backup-database');
+        $this->artisan('yeyu-file-express:daily-stats')->assertSuccessful();
+        $this->artisan('yeyu-file-express:prune-logs', ['--days' => 1])->assertSuccessful();
+        $this->artisan('yeyu-file-express:backup-config')->assertSuccessful();
+        $this->artisan('yeyu-file-express:backup-database');
 
         $this->assertDatabaseCount('daily_stats', 1);
         $this->assertDatabaseMissing('file_uploads', ['original_name' => 'old.txt']);

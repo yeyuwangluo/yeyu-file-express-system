@@ -3,8 +3,8 @@
 ## 服务器环境
 
 - PHP 8.0.2+，启用 `pdo_mysql`、`fileinfo`、`mbstring`、`openssl`、`curl`、`tokenizer`、`xml`、`ctype`、`json` 扩展。
-- MySQL 5.7+，数据库名建议 `xiaoxin_file_express`，字符集 `utf8mb4`，排序规则 `utf8mb4_unicode_ci`。
-- Nginx 或 Caddy 作为 Web 入口，站点根目录指向 `xiaoxin-file-express-system/public`。
+- MySQL 5.7+，数据库名建议 `yeyu_file_express`，字符集 `utf8mb4`，排序规则 `utf8mb4_unicode_ci`。
+- Nginx 或 Caddy 作为 Web 入口，站点根目录指向 `yeyu-file-express-system/public`。
 - 前端 CSS/JS 已预编译到 `public/_next/static/`，部署不需要 Node.js。
 - 队列 worker 和 scheduler 必须作为系统服务或计划任务常驻。
 - Composer 依赖锁以 PHP 8.0.2 为平台生成，安装时使用仓库内 `composer.lock`。不要在生产服务器随意执行 `composer update`。
@@ -25,8 +25,8 @@ APP_URL=https://your-domain.example
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=xiaoxin_file_express
-DB_USERNAME=xiaoxin_file_express
+DB_DATABASE=yeyu_file_express
+DB_USERNAME=yeyu_file_express
 DB_PASSWORD=change-this-password
 
 FILESYSTEM_DISK=local
@@ -48,7 +48,7 @@ FILESYSTEM_DISK=s3
 AWS_ACCESS_KEY_ID=your-access-key
 AWS_SECRET_ACCESS_KEY=your-secret-key
 AWS_DEFAULT_REGION=auto
-AWS_BUCKET=xiaoxin-file-express
+AWS_BUCKET=yeyu-file-express
 AWS_ENDPOINT=https://s3.example.com
 AWS_URL=
 AWS_USE_PATH_STYLE_ENDPOINT=true
@@ -80,7 +80,7 @@ server {
 server {
     listen 443 ssl http2;
     server_name your-domain.example;
-    root /var/www/xiaoxin-file-express-system/public;
+    root /var/www/yeyu-file-express-system/public;
     index index.php;
 
     client_max_body_size 50m;
@@ -120,14 +120,14 @@ Systemd 示例：
 
 ```ini
 [Unit]
-Description=Xiaoxin File Express Queue Worker
+Description=Yeyu File Express Queue Worker
 After=network.target
 
 [Service]
 User=www-data
 Group=www-data
 Restart=always
-WorkingDirectory=/var/www/xiaoxin-file-express-system
+WorkingDirectory=/var/www/yeyu-file-express-system
 ExecStart=/usr/bin/php artisan queue:work database --sleep=3 --tries=3 --timeout=120
 
 [Install]
@@ -139,7 +139,7 @@ WantedBy=multi-user.target
 Crontab 示例：
 
 ```cron
-* * * * * cd /var/www/xiaoxin-file-express-system && php artisan schedule:run >> /dev/null 2>&1
+* * * * * cd /var/www/yeyu-file-express-system && php artisan schedule:run >> /dev/null 2>&1
 ```
 
 ## 验收

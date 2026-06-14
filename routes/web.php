@@ -75,7 +75,7 @@ Route::prefix('admin-lite')->middleware('admin.basic')->name('admin-lite.')->gro
     Route::post('/content', [AdminLiteController::class, 'updateContent'])->name('content.update');
     Route::get('/oss', function () {
         return view('admin.oss', [
-            'settings' => \App\Support\XiaoxinFileExpressSettings::configPayload(),
+            'settings' => \App\Support\YeyuFileExpressSettings::configPayload(),
         ]);
     })->name('oss');
     Route::get('/netdisk123', [\App\Http\Controllers\Admin\Netdisk123Controller::class, 'index'])->name('netdisk123');

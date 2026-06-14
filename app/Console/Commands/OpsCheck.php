@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Schema;
 
 class OpsCheck extends Command
 {
-    protected $signature = 'xiaoxin-file-express:ops-check {--json : Output JSON} {--strict : Return failure when actionable issues exist} {--record : Persist the latest check result}';
+    protected $signature = 'yeyu-file-express:ops-check {--json : Output JSON} {--strict : Return failure when actionable issues exist} {--record : Persist the latest check result}';
 
     protected $description = 'Check operational readiness for queue, scans, and risk review.';
 

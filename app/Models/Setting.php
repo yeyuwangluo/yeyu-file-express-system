@@ -56,7 +56,7 @@ class Setting extends Model
     {
         if (! app()->runningInConsole() && app()->bound('request')) {
             $request = request();
-            $cacheKey = 'xiaoxin_file_express_settings';
+            $cacheKey = 'yeyu_file_express_settings';
 
             if ($request->attributes->has($cacheKey)) {
                 return $request->attributes->get($cacheKey);

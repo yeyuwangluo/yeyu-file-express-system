@@ -14,7 +14,7 @@ class ResetInstallation extends Command
 
     public function handle(InstallationState $state): int
     {
-        if (! $this->option('force') && ! $this->confirm('确定要重置安装状态吗？这将删除安装标记文件并清除 .env 中的 XIAOXIN_FILE_EXPRESS_INSTALLED 变量。', false)) {
+        if (! $this->option('force') && ! $this->confirm('确定要重置安装状态吗？这将删除安装标记文件并清除 .env 中的 YEYU_FILE_EXPRESS_INSTALLED 变量。', false)) {
             $this->info('操作已取消。');
 
             return self::SUCCESS;
@@ -34,13 +34,13 @@ class ResetInstallation extends Command
         if (is_file($envPath)) {
             $content = (string) file_get_contents($envPath);
 
-            if (strpos($content, 'XIAOXIN_FILE_EXPRESS_INSTALLED') !== false) {
-                $content = preg_replace('/^XIAOXIN_FILE_EXPRESS_INSTALLED=.*$/m', '', $content);
+            if (strpos($content, 'YEYU_FILE_EXPRESS_INSTALLED') !== false) {
+                $content = preg_replace('/^YEYU_FILE_EXPRESS_INSTALLED=.*$/m', '', $content);
                 $content = preg_replace('/\n{3,}/', "\n\n", $content);
                 file_put_contents($envPath, rtrim($content) . PHP_EOL);
-                $this->info('已清除 .env 中的 XIAOXIN_FILE_EXPRESS_INSTALLED 变量。');
+                $this->info('已清除 .env 中的 YEYU_FILE_EXPRESS_INSTALLED 变量。');
             } else {
-                $this->info('.env 中无 XIAOXIN_FILE_EXPRESS_INSTALLED 变量，无需处理。');
+                $this->info('.env 中无 YEYU_FILE_EXPRESS_INSTALLED 变量，无需处理。');
             }
         }
 

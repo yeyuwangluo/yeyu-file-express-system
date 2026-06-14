@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Log;
 
 class GenerateDailyStats extends Command
 {
-    protected $signature = 'xiaoxin-file-express:daily-stats {date?}';
+    protected $signature = 'yeyu-file-express:daily-stats {date?}';
 
-    protected $description = 'Generate Xiaoxin File Express daily statistics.';
+    protected $description = 'Generate Yeyu File Express daily statistics.';
 
     public function handle(): int
     {

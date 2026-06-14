@@ -20,20 +20,20 @@
 
 - 上传日志、下载日志、后台审计日志默认入库。
 - 建议生产保留 180 天上传/下载日志，后台审计日志至少保留 365 天。
-- `xiaoxin-file-express:prune-logs --days=180` 可清理超过周期的上传、下载和健康检查记录。
+- `yeyu-file-express:prune-logs --days=180` 可清理超过周期的上传、下载和健康检查记录。
 - 日志中包含 IP、User-Agent、Referer 等字段，导出或共享时应限制访问权限。
 
 ## 数据删除
 
-- 文件过期后由 `xiaoxin-file-express:cleanup-expired-files` 标记过期并删除真实文件。
+- 文件过期后由 `yeyu-file-express:cleanup-expired-files` 标记过期并删除真实文件。
 - 后台手动删除文件会派发存储删除队列任务。
 - 用户或投诉方要求删除时，优先用分享码定位文件，并通过后台删除。
 - 对象存储环境需要确认存储桶没有额外公开读权限。
 
 ## 备份保留
 
-- 数据库备份由 `xiaoxin-file-express:backup-database` 生成。
-- 关键配置备份由 `xiaoxin-file-express:backup-config` 生成。
+- 数据库备份由 `yeyu-file-express:backup-database` 生成。
+- 关键配置备份由 `yeyu-file-express:backup-config` 生成。
 - 生产建议至少保留 7 天每日备份和 4 周每周备份。
 - 备份文件应放在非公开目录，并定期做恢复演练。
 

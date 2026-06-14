@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 
 class PruneOperationalLogs extends Command
 {
-    protected $signature = 'xiaoxin-file-express:prune-logs {--days=90}';
+    protected $signature = 'yeyu-file-express:prune-logs {--days=90}';
 
     protected $description = 'Prune old upload, download, and health check records.';
 

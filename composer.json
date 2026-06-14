@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "xiaoxin-file-express/system",
+    "name": "yeyu-file-express/system",
     "type": "project",
-    "description": "Xiaoxin File Express upload, sharing, LAN transfer, and admin system.",
-    "keywords": ["xiaoxin-file-express", "laravel", "file-sharing"],
+    "description": "Yeyu File Express upload, sharing, LAN transfer, and admin system.",
+    "keywords": ["yeyu-file-express", "laravel", "file-sharing"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",

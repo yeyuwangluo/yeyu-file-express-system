@@ -36,7 +36,7 @@ class SystemInstaller
         $this->createAdmin($data);
         $this->tryStorageLink();
         $this->state->markInstalled((string) $data['admin_email']);
-        $this->writeEnvironmentValues(['XIAOXIN_FILE_EXPRESS_INSTALLED' => 'true']);
+        $this->writeEnvironmentValues(['YEYU_FILE_EXPRESS_INSTALLED' => 'true']);
         $this->runArtisan('config:clear');
     }
 

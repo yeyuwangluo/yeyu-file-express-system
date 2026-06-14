@@ -115,7 +115,7 @@
                 @if ($errorFor('db_port'))<span class="field-error">{{ $errorFor('db_port') }}</span>@endif
               </label>
               <label>数据库名
-                <input name="db_database" value="{{ $input['db_database'] ?? 'xiaoxin_file_express' }}">
+                <input name="db_database" value="{{ $input['db_database'] ?? 'yeyu_file_express' }}">
                 @if ($errorFor('db_database'))<span class="field-error">{{ $errorFor('db_database') }}</span>@endif
               </label>
               <label>用户名

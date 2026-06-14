@@ -40,7 +40,7 @@ class RiskEvaluator
             $reasons[] = 'mime_extension_mismatch';
         }
 
-        $uploadLimit = max(1, (int) XiaoxinFileExpressSettings::upload()['maxFileSize']);
+        $uploadLimit = max(1, (int) YeyuFileExpressSettings::upload()['maxFileSize']);
         if ($size >= (int) floor($uploadLimit * 0.9)) {
             $score += 10;
             $reasons[] = 'near_size_limit';
@@ -51,8 +51,8 @@ class RiskEvaluator
             $reasons[] = 'suspicious_name';
         }
 
-        $window = max(1, (int) config('xiaoxin_file_express.risk.repeated_failure_window_minutes', 60));
-        $limit = max(1, (int) config('xiaoxin_file_express.risk.repeated_failure_limit', 5));
+        $window = max(1, (int) config('yeyu_file_express.risk.repeated_failure_window_minutes', 60));
+        $limit = max(1, (int) config('yeyu_file_express.risk.repeated_failure_limit', 5));
         $failedUploads = FileUpload::query()
             ->where('ip', $ip)
             ->where('success', false)
@@ -89,7 +89,7 @@ class RiskEvaluator
         return [
             'score' => $score,
             'reasons' => array_values(array_unique($reasons)),
-            'blocked' => $score >= (int) XiaoxinFileExpressSettings::risk()['blockScore'],
+            'blocked' => $score >= (int) YeyuFileExpressSettings::risk()['blockScore'],
         ];
     }
 

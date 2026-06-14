@@ -19,7 +19,7 @@ class StaticPageController extends Controller
         $path = resource_path("static-pages/{$page}.html");
         abort_unless(is_file($path), 404);
 
-        $cacheKey = 'xiaoxin-file-express:static-page:'.$page.':'.filemtime($path).':'.self::ENHANCEMENT_VERSION;
+        $cacheKey = 'yeyu-file-express:static-page:'.$page.':'.filemtime($path).':'.self::ENHANCEMENT_VERSION;
         $html = Cache::store('file')->rememberForever($cacheKey, function () use ($path, $page): string {
             return $this->injectEnhancements((string) file_get_contents($path), $page);
         });
@@ -172,10 +172,10 @@ JS;
         return <<<'JS'
 <script>
 (function(){
-  if(window.__xiaoxinUploadHistoryBound || !window.fetch) return;
-  window.__xiaoxinUploadHistoryBound = true;
+  if(window.__yeyuUploadHistoryBound || !window.fetch) return;
+  window.__yeyuUploadHistoryBound = true;
   var originalFetch = window.fetch;
-  var historyKey = 'xiaoxin_upload_history';
+  var historyKey = 'yeyu_upload_history';
 
   function isUploadRequest(input, init){
     try{

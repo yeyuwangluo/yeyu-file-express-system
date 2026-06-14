@@ -60,9 +60,9 @@
       var batchDescription = document.getElementById('batch-description');
       var batchCover = document.getElementById('batch-cover');
       var batchExpires = document.getElementById('batch-expires');
-      var storageKeys = ['xiaoxin_upload_history', 'upload_history', 'uploadHistory', 'fileHistory', 'uploadedFiles'];
-      var batchStorageKey = 'xiaoxin_batch_shares';
-      var favoriteStorageKey = 'xiaoxin_file_favorites';
+      var storageKeys = ['yeyu_upload_history', 'upload_history', 'uploadHistory', 'fileHistory', 'uploadedFiles'];
+      var batchStorageKey = 'yeyu_batch_shares';
+      var favoriteStorageKey = 'yeyu_file_favorites';
       var currentRows = [];
       var currentBatches = [];
       function readCodes() {
