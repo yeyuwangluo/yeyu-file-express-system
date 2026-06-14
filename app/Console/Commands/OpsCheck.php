@@ -150,7 +150,7 @@ class OpsCheck extends Command
 
         try {
             $response = Http::timeout(5)->acceptJson()->post($webhookUrl, [
-                'title' => '小新文件快递运维自检告警',
+                'title' => '叶宇文件快递运维自检告警',
                 'status' => $summary['status'],
                 'checked_at' => $summary['checked_at'],
                 'issues' => $summary['issues'] ?? [],
@@ -172,7 +172,7 @@ class OpsCheck extends Command
     {
         try {
             $response = Http::timeout(5)->acceptJson()->post($webhookUrl, [
-                'title' => '小新文件快递运维自检恢复',
+                'title' => '叶宇文件快递运维自检恢复',
                 'status' => 'ok',
                 'checked_at' => $summary['checked_at'],
                 'issues' => [],
